@@ -6,7 +6,7 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#0e1618">
-  <meta name="description" content="ПМК-Архитектор — подбор, продажа и монтаж септиков, автономной канализации и кессонов в Арамили, Екатеринбурге и Свердловской области. Выезд инженера на участок — 1 ₽.">
+  <meta name="description" content="ПМК-Архитектор — подбор, продажа и монтаж септиков, автономной канализации и кессонов в Арамили, Екатеринбурге и Свердловской области. Выезд инженера на участок — бесплатно.">
   <meta name="robots" content="noindex,nofollow">
   <title>ПМК-Архитектор — септики и автономная канализация в Арамили и Екатеринбурге</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const DEFAULT_CONFIG = {
   "name": "ПМК-Архитектор",
   "profession": "Арамиль и Екатеринбург · Автономная канализация и септики",
-  "status": "Вызвать инженера (1 ₽)",
+  "status": "Вызвать инженера бесплатно",
   "area": "Арамиль, Шпагатная улица, 1а/5 (1 этаж) · выезд по Екатеринбургу и области",
   "schedule": "Пн–Пт 09:00 — 18:00 · Сб–Вс выходной",
   "phone": "+7 (343) 344-80-50",
@@ -85,7 +85,7 @@ const DEFAULT_CONFIG = {
       "text": "Септики, станции, кессоны и ёмкости от 26 000 ₽"
     },
     {
-      "value": "1 ₽",
+      "value": "Бесплатно",
       "text": "Выезд инженера на участок для подбора решения"
     },
     {
@@ -141,9 +141,9 @@ const DEFAULT_CONFIG = {
       "title": "Выезд инженера на ваш участок для подбора решений",
       "section": "Услуги и монтаж",
       "category": "Подбор и сервис",
-      "price": 1,
+      "price": 0,
       "description": "Осмотр грунта и уровня грунтовых вод на месте, замер трассы, фиксация точной сметы без скрытых доплат.",
-      "duration": "",
+      "duration": "Бесплатно",
       "discountPercent": null
     },
     {
@@ -701,10 +701,10 @@ function updateSummary(config) {
   total.hidden = !services.length;
   find('#clear-services').hidden = !services.length;
   const amount = services.reduce((sum, service) => sum + unitPrice(service, config), 0);
-  const byAgreement = services.some(service => !service.price);
+  const byAgreement = services.some(service => !service.price && service.duration !== 'Бесплатно');
   const nextValue = services.some(service => service.price > 0)
     ? (services.some(service => service.duration === 'от') ? 'От ' : '') + money(amount) + (byAgreement ? ' + по согласованию' : '')
-    : 'Стоимость по согласованию';
+    : (services.every(service => service.duration === 'Бесплатно') ? 'Бесплатно' : 'Стоимость по согласованию');
 
   if (services.length) {
     renderOdometer(total, nextValue);
@@ -738,7 +738,7 @@ function renderServices(config) {
   sectionSelect.value = sections.includes(activeSection) ? activeSection : (sections[0] || '');
   find('.catalog-filters').hidden = !sections.length;
   find('#catalog-help').textContent = sections.length
-    ? 'Выберите раздел прайса 2ГИС и отметьте нужные позиции — смета справа соберётся автоматически.'
+    ? 'Выберите раздел и отметьте нужные позиции — смета справа соберётся автоматически.'
     : 'Уточните стоимость на выезде инженера.';
 
   const pickSection = name => {
@@ -783,7 +783,9 @@ function renderServices(config) {
     const rate = el('span', '', label, 'rate');
     const unit = unitPrice(service, config);
     const prefix = service.duration === 'от' ? 'от ' : '';
-    rate.textContent = service.price ? prefix + money(unit) : 'По согласованию';
+    rate.textContent = service.price
+      ? prefix + money(unit)
+      : (service.duration === 'Бесплатно' ? 'Бесплатно' : 'По согласованию');
     if (service.price && unit !== service.price) el('s', money(service.price), rate);
 
     const input = el('input', '', label);
@@ -1002,7 +1004,7 @@ function buildBookingMessage(config) {
     'Здравствуйте! Интересует подбор и расчёт септика в «' + config.name + '».',
     ...[...selected.values()].map(service => {
       const label = [service.section, service.title].filter(Boolean).join(' / ');
-      if (!service.price) return '• ' + label + ' — по согласованию';
+      if (!service.price) return '• ' + label + (service.duration === 'Бесплатно' ? ' — Бесплатно' : ' — по согласованию');
       const prefix = service.duration === 'от' ? 'от ' : '';
       return '• ' + label + ' — ' + prefix + money(unitPrice(service, config));
     }),
@@ -1452,12 +1454,12 @@ form.addEventListener('submit', async (event) => {
           <img class="hero-photo" src="assets/hero-install.webp" alt="Монтаж септика Евролос в котловане и подключение канализационной трубы — ПМК-Архитектор" fetchpriority="high">
           <figcaption class="hero-spec-bar">
             <div class="spec-chip">
-              <span>ПРАЙС 2ГИС</span>
+              <span>ЦЕНЫ</span>
               <strong>от 26 000 ₽</strong>
             </div>
             <div class="spec-chip">
               <span>ВЫЕЗД ИНЖЕНЕРА</span>
-              <strong>1 ₽</strong>
+              <strong>Бесплатно</strong>
             </div>
             <div class="spec-chip">
               <span>МОНТАЖ</span>
@@ -1480,7 +1482,7 @@ form.addEventListener('submit', async (event) => {
         <span>Септики, станции, кессоны и ёмкости от 26 000 ₽</span>
       </div>
       <div class="fact-cell">
-        <strong>1 ₽</strong>
+        <strong>Бесплатно</strong>
         <span>Выезд инженера на участок для подбора решения</span>
       </div>
       <div class="fact-cell">
@@ -1561,12 +1563,12 @@ form.addEventListener('submit', async (event) => {
         <span class="eyebrow">02 / КАТАЛОГ И СМЕТА</span>
         <h2>Оборудование, кессоны и монтаж</h2>
       </div>
-      <a class="visit-link" href="#booking" id="status">Вызвать инженера (1 ₽)</a>
+      <a class="visit-link" href="#booking" id="status">Вызвать инженера бесплатно</a>
     </div>
 
     <div class="directory">
       <div class="catalog-col" data-reveal>
-        <p class="note" id="catalog-help">Выберите раздел прайса 2ГИС и отметьте нужные позиции — смета справа соберётся автоматически.</p>
+        <p class="note" id="catalog-help">Выберите раздел и отметьте нужные позиции — смета справа соберётся автоматически.</p>
         <div class="catalog-filters">
           <div class="filter-group">
             <span class="filter-caption">Раздел</span>
