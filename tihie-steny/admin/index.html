@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="ru" data-static-demo>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Кабинет мастера — Тихие стены</title>
+  <link rel="stylesheet" href="./base.css">
+  <link rel="stylesheet" href="./admin.css">
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+const DEFAULT_CONFIG = {
+  "name": "Тихие стены",
+  "profession": "Казань · Потолки и текстильные стены",
+  "status": "Вызвать замерщика",
+  "area": "Казань, пр. Ямашева, 83 (шоурум)",
+  "schedule": "Пн–Пт 09:00 — 18:00 · Сб–Вс по звонку",
+  "phone": "+7 (927) 042-65-02",
+  "whatsapp": "",
+  "telegram": "oksana_quietwalls_kzn",
+  "max": "https://max.ru/u/f9LHodD0cOIcvJtUgCvw6G1aoyE9sP8WmLDK9hnLABUOrciur7bSUSt2vv0",
+  "channels": {
+    "whatsapp": false,
+    "telegram": true,
+    "max": true
+  },
+  "demo": false,
+  "about": "Шоурум на пр. Ямашева, 83 в Казани: натяжные потолки, бесшовная текстильная отделка стен «Тихие стены», освещение по проекту, электрокарнизы Onviz и дизайнерские радиаторы FUSIONLINE.",
+  "discountPercent": 0,
+  "hero": {
+    "title": "Тихие стены",
+    "accent": "и потолки в Казани",
+    "description": "Тканевые акустические стены, натяжные потолки, встроенное освещение и электрокарнизы под ключ. Без штукатурки и пыли — с шоурумом образцов на Ямашева, 83.",
+    "image": "assets/hero.webp",
+    "imageSmall": "",
+    "imageAlt": "Интерьер с бесшовной текстильной стеной и матовым натяжным потолком Тихие стены"
+  },
+  "gallery": [
+    {
+      "src": "assets/work-hall.webp",
+      "alt": "Текстильные стены с молдингами и парящей подсветкой в холле"
+    },
+    {
+      "src": "assets/work-walls.webp",
+      "alt": "Акустические стены, 3D-рельеф и встроенное освещение"
+    },
+    {
+      "src": "assets/work-bath.webp",
+      "alt": "Световой потолок с теневым профилем в санузле"
+    },
+    {
+      "src": "assets/work-stairs.webp",
+      "alt": "Бесшовная отделка стен вдоль лестницы с контурным профилем"
+    },
+    {
+      "src": "assets/work-bedroom.webp",
+      "alt": "Спальня с тихими стенами и закарнизной подсветкой"
+    },
+    {
+      "src": "assets/work-door.webp",
+      "alt": "Текстильная стена, дверь скрытого монтажа и вертикальный радиатор"
+    }
+  ],
+  "facts": [],
+  "reviews": [
+    {
+      "name": "Дмитрий Матвеев",
+      "task": "Натяжные потолки и свет (3-комн.)",
+      "quote": "Сделали натяжные потолки, довольны результатом! За 2 дня сделали трёхкомнатную квартиру, быстро и качественно. Благодарю менеджера по освещению — заказал потолки и сделали скидку на освещение.",
+      "source": "2ГИС",
+      "link": "https://2gis.ru/kazan/firm/70000001081547949/tab/reviews",
+      "src": "assets/review-1.webp"
+    },
+    {
+      "name": "Мария С",
+      "task": "Установка тканевых стен",
+      "quote": "Обращались за установкой тканевых стен. Пока это лучшее решение для отделки, которое смогли найти. Ребята сделали всё быстро, качественно, без лишних вопросов. Рекомендую компанию и тихие стены!",
+      "source": "2ГИС",
+      "link": "https://2gis.ru/kazan/firm/70000001081547949/tab/reviews",
+      "src": "assets/work-bedroom.webp"
+    },
+    {
+      "name": "Данияр Кадерлеев",
+      "task": "Натяжные потолки и подбор света",
+      "quote": "Обратились в компанию с запросом замены натяжных потолков. Рассчитали несколько вариантов с учётом бюджета и эстетики, совместно с менеджерами подобрали освещение.",
+      "source": "2ГИС",
+      "link": "https://2gis.ru/kazan/firm/70000001081547949/tab/reviews",
+      "src": "assets/work-detail.webp"
+    }
+  ],
+  "services": [
+    {
+      "id": "p-base",
+      "title": "Натяжные потолки (за 1 м²)",
+      "section": "Натяжные потолки",
+      "category": "Базовый прайс",
+      "price": 700,
+      "description": "По прайсу компании: идеально ровная поверхность, скрытие неровностей перекрытия и электропроводки без мокрых работ.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "p-room-10",
+      "title": "Кухня / санузел / прихожая (до 10 м²)",
+      "section": "Натяжные потолки",
+      "category": "По комнатам",
+      "price": 7000,
+      "description": "Ориентировочный расчёт под полотно 10 м² по ставке от 700 ₽/м². Точная смета с профилем и светом — на замере.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "p-room-16",
+      "title": "Спальня / детская (~16 м²)",
+      "section": "Натяжные потолки",
+      "category": "По комнатам",
+      "price": 11200,
+      "description": "Ориентир по базовому полотну 16 м² (от 700 ₽/м²). Дополнительно рассчитываются ниши, светильники и теневой профиль.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "p-room-22",
+      "title": "Гостиная / кухня-гостиная (~22 м²)",
+      "section": "Натяжные потолки",
+      "category": "По комнатам",
+      "price": 15400,
+      "description": "Бесшовное полотно на большую площадь от 700 ₽/м² с подбором сценариев освещения под интерьер.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "p-flat-45",
+      "title": "1-комн. квартира (~40–45 м²)",
+      "section": "Натяжные потолки",
+      "category": "По комнатам",
+      "price": 28000,
+      "description": "Комплекс потолков по всей квартире (комната, кухня, коридор, санузел) от 700 ₽/м².",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "p-flat-65",
+      "title": "2-комн. квартира (~60–65 м²)",
+      "section": "Натяжные потолки",
+      "category": "По комнатам",
+      "price": 42000,
+      "description": "Комплексная установка во всех помещениях за 1–2 дня с уборкой после монтажа.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "w-base",
+      "title": "Тихие стены — отделка стен (за 1 м²)",
+      "section": "Тихие стены",
+      "category": "По прайсу",
+      "price": 3500,
+      "description": "Бесшовная отделка архитектурным текстилем: скрывает неровности без штукатурки и снижает эхо и шум.",
+      "duration": "",
+      "discountPercent": null
+    },
+    {
+      "id": "w-wall-accent",
+      "title": "Акцентная стена в спальне (~12 м²)",
+      "section": "Тихие стены",
+      "category": "По помещениям",
+      "price": 42000,
+      "description": "Монтаж одной стены 12 м² (по ставке 3 500 ₽/м²). Тёплая фактура ткани у изголовья кровати и поглощение звука.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "w-room-35",
+      "title": "Комната под ключ (стены ~35 м²)",
+      "section": "Тихие стены",
+      "category": "По помещениям",
+      "price": 122500,
+      "description": "Периметр стен ~35 м² по 3 500 ₽/м². Сухой монтаж за 1–2 дня по уже чистовому полу без пыли.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "w-turnkey",
+      "title": "Ремонт под ключ за 30 дней с «Тихими стенами» (за 1 м²)",
+      "section": "Тихие стены",
+      "category": "Комплексный ремонт",
+      "price": 25000,
+      "description": "Комплексный ремонт квартир и домов под ключ с фиксированными сроками — от подготовки до чистовой сдачи.",
+      "duration": "",
+      "discountPercent": null
+    },
+    {
+      "id": "o-measure",
+      "title": "Выезд специалиста на замер",
+      "section": "Освещение и карнизы",
+      "category": "Все размеры",
+      "price": 0,
+      "description": "Бесплатный выезд технолога с образцами тканей, профилей и каталогом света в удобное время.",
+      "duration": "",
+      "discountPercent": null
+    },
+    {
+      "id": "o-light",
+      "title": "Подбор освещения по дизайн-проекту",
+      "section": "Освещение и карнизы",
+      "category": "Все размеры",
+      "price": 0,
+      "description": "Бесплатный расчёт световых линий, трековых систем, спотов и закарнизной подсветки под проект.",
+      "duration": "",
+      "discountPercent": null
+    },
+    {
+      "id": "o-onviz",
+      "title": "Электрокарнизы и шторы Onviz",
+      "section": "Освещение и карнизы",
+      "category": "Все размеры",
+      "price": 0,
+      "description": "Тихие умные электрокарнизы: управление с пульта, смартфона и через Алису. Расчёт по ширине проёма.",
+      "duration": "",
+      "discountPercent": null
+    },
+    {
+      "id": "o-fusionline",
+      "title": "Дизайнерские радиаторы и полотенцесушители FUSIONLINE",
+      "section": "Освещение и карнизы",
+      "category": "Все размеры",
+      "price": 0,
+      "description": "Изготовление из коррозионностойкого сплава EN AW 6063 любых цветов и размеров. Гарантия 10 лет, цена по проекту.",
+      "duration": "",
+      "discountPercent": null
+    }
+  ]
+};
+
+function phoneDigits(value) {
+  const digits = value.replace(/\D/g, '');
+  const hasPrefix = /^\s*\+7/.test(value) || (digits.length !== 10 && /^[78]/.test(digits));
+  return (hasPrefix ? digits.slice(1) : digits).slice(0, 10);
+}
+
+function bindPhone(input) {
+  const format = () => {
+    const digits = phoneDigits(input.value);
+    const parts = [digits.slice(0, 3), digits.slice(3, 6), digits.slice(6, 8), digits.slice(8, 10)];
+    input.value = '+7' + (digits ? ' ' + parts.filter(Boolean).join(' ') : '');
+    input.setCustomValidity(digits.length === 10 ? '' : 'Введите 10 цифр номера после +7.');
+  };
+  input.addEventListener('focus', () => { if (!input.value) format(); });
+  input.addEventListener('beforeinput', event => {
+    if (input.value === '+7' && input.selectionStart === input.value.length && /^[+78]$/.test(event.data ?? '')) {
+      event.preventDefault();
+    }
+  });
+  input.addEventListener('paste', event => {
+    if (!event.clipboardData) return;
+    const value = event.clipboardData.getData('text');
+    if (input.value === '+7' || input.selectionStart === 0 && input.selectionEnd === input.value.length) {
+      event.preventDefault();
+      input.value = value;
+      format();
+    }
+  });
+  input.addEventListener('input', () => {
+    if (input.value) format();
+    else input.setCustomValidity('');
+  });
+  input.addEventListener('blur', () => {
+    if (!phoneDigits(input.value)) {
+      input.value = '';
+      input.setCustomValidity('');
+    }
+  });
+  if (input.value) format();
+  return format;
+}
+
+
+const key = 'tihie-steny-demo-profile-v1';
+
+function demoProfile() {
+  try {
+    const stored = localStorage.getItem(key);
+    if (stored) return JSON.parse(stored);
+  } catch {
+    // Use defaults when the browser blocks access to local storage.
+  }
+  return structuredClone(DEFAULT_CONFIG);
+}
+
+function saveDemoProfile(config) {
+  try {
+    localStorage.setItem(key, JSON.stringify(config));
+  } catch {
+    throw new Error('Браузер не смог сохранить настройки. Уменьшите размер фотографий или разрешите локальное хранилище.');
+  }
+}
+
+
+const text = (value, max = 160, optional = false) => {
+  if (typeof value !== 'string' || value.length > max || (!optional && !value.trim())) throw new Error('Проверьте заполнение полей.');
+  return value.trim();
+};
+const number = (value, max) => {
+  if (!Number.isInteger(value) || value < 0 || value > max) throw new Error('Проверьте цену или скидку.');
+  return value;
+};
+const list = (value, max, convert, min = 0) => {
+  if (!Array.isArray(value) || value.length > max || value.length < min) throw new Error('Проверьте количество записей.');
+  return value.map(convert);
+};
+const mediaPath = /^\/media\/[a-f0-9-]{36}\.(webp|png|jpg)$/;
+const photo = (value, demo = false) => {
+  if (demo && typeof value === "string" && value.length < 2700000 && /^data:image\/webp;base64,[a-z0-9+/=]+$/i.test(value)) return value;
+  if (value === DEFAULT_CONFIG.hero.image || [...DEFAULT_CONFIG.gallery, ...DEFAULT_CONFIG.reviews].some(photo => photo.src === value) || mediaPath.test(value)) return value;
+  throw new Error('Загрузите фотографию через кабинет.');
+};
+
+function validateConfig(value, { demo = false } = {}) {
+  const result = structuredClone(DEFAULT_CONFIG);
+  for (const key of ['name', 'profession', 'status', 'area', 'schedule']) result[key] = text(value[key]);
+  result.phone = text(value.phone, 32);
+  if (!/^\+?[\d ()-]+$/.test(result.phone) || !/^\d{10,15}$/.test(result.phone.replace(/\D/g, ''))) throw new Error('Проверьте номер для звонков.');
+  result.telegram = text(value.telegram, 40, true);
+  result.whatsapp = text(value.whatsapp, 32, true);
+  result.max = text(value.max || '', 300, true);
+  result.channels = { telegram: value.channels?.telegram === true, whatsapp: value.channels?.whatsapp === true, max: value.channels?.max === true };
+  if (result.channels.telegram && !/^(?:@?[a-zA-Z0-9_]{5,32}|\+\d{10,15})$/.test(result.telegram)) throw new Error('Укажите корректный ник Telegram.');
+  if (result.channels.whatsapp && !/^\d{10,15}$/.test(result.whatsapp.replace(/\D/g, ''))) throw new Error('Укажите номер WhatsApp с кодом страны.');
+  if (result.channels.max && !/^https:\/\/max\.ru\/\S+$/.test(result.max)) throw new Error('Укажите корректную ссылку на чат MAX.');
+  result.demo = value.demo === true;
+  result.about = text(value.about, 1200);
+  result.discountPercent = number(value.discountPercent, 100);
+  result.hero = {
+    title: text(value.hero?.title),
+    accent: text(value.hero?.accent, 160, true),
+    description: text(value.hero?.description, 650),
+    image: photo(value.hero?.image, demo),
+    imageAlt: text(value.hero?.imageAlt, 200, true),
+    imageSmall: value.hero?.image === DEFAULT_CONFIG.hero.image ? DEFAULT_CONFIG.hero.imageSmall : '',
+  };
+  result.gallery = list(value.gallery, 12, (item) => ({ src: photo(item.src, demo), alt: text(item.alt, 200, true) }));
+  result.facts = list(value.facts, 8, (item) => ({ value: text(item.value, 48), text: text(item.text, 300) }));
+  result.reviews = list(value.reviews, 12, (item) => ({ name: text(item.name, 100), task: text(item.task, 150, true), quote: text(item.quote, 1000), src: item.src ? photo(item.src, demo) : "", source: text(item.source || "", 60, true), link: /^https:\/\/(?:yandex\.ru|2gis\.ru)\//.test(item.link) ? text(item.link, 500) : "" }));
+  result.services = list(value.services, 120, (item) => {
+    if (!/^[\w-]{1,64}$/.test(item.id)) throw new Error('Некорректный идентификатор услуги.');
+    return {
+      id: item.id,
+      title: text(item.title, 130),
+      description: text(item.description || "", 500, true),
+      section: text(item.section || "Натяжные потолки", 80),
+      category: text(item.category || "", 80, true),
+      duration: text(item.duration, 65, true),
+      price: number(item.price, 100000000),
+      discountPercent: item.discountPercent == null ? null : number(item.discountPercent, 100),
+    };
+  }, 1);
+  if (new Set(result.services.map((item) => item.id)).size !== result.services.length) throw new Error('Услуги должны быть уникальными.');
+  return result;
+}
+
+
+const staticDemo = document.documentElement.hasAttribute('data-static-demo');
+const find = (selector) => document.querySelector(selector);
+const notice = find('#message');
+const form = find('#site-form');
+const login = find('#login');
+const save = find('#save');
+bindPhone(login.elements.phone);
+
+let state;
+let draft;
+let activating = false;
+let busy = false;
+let dirty = false;
+
+function el(tag, text, parent) {
+  const node = document.createElement(tag);
+  if (text) node.textContent = text;
+  parent?.append(node);
+  return node;
+}
+
+async function api(path, method = 'GET', data) {
+  if (staticDemo) {
+    if (path === 'settings' && method === 'GET') return { config: demoProfile() };
+    if (path === 'settings' && method === 'PUT') {
+      const config = validateConfig(data.config, { demo: true });
+      saveDemoProfile(config);
+      return { config };
+    }
+    if (path === 'photos' && method === 'POST') {
+      const src = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error('Не удалось прочитать фото.'));
+        reader.readAsDataURL(data);
+      });
+      return { src };
+    }
+  }
+  const options = { method };
+  if (data instanceof Blob) options.body = data;
+  else if (data !== undefined) {
+    options.headers = { 'Content-Type': 'application/json' };
+    options.body = JSON.stringify(data);
+  }
+  const response = await fetch('/api/' + path, options);
+  const result = await response.json();
+  if (!response.ok) throw Object.assign(new Error(result.error), { status: response.status });
+  return result;
+}
+
+function setDirty(value = true) {
+  dirty = value;
+  save.disabled = !dirty || busy;
+  find('#save-state').textContent = dirty ? 'Есть несохранённые изменения' : 'Нет несохранённых изменений';
+}
+
+function report(error) {
+  notice.textContent = error.message;
+  notice.scrollIntoView({ block: 'nearest' });
+}
+
+async function operation(action) {
+  if (busy) return;
+  busy = true;
+  form.inert = true;
+  save.disabled = true;
+  notice.textContent = '';
+  try { await action(); } catch (error) { report(error); }
+  finally { busy = false; form.inert = false; save.disabled = !dirty; }
+}
+
+function switchAuth(value) {
+  activating = value;
+  find('#auth-title').textContent = value ? 'Активация кабинета' : 'Вход';
+  find('#auth-action').textContent = value ? 'Активировать и войти' : 'Войти';
+  find('#auth-toggle').textContent = value ? 'Уже есть пароль' : 'Активировать кабинет';
+  find('#auth-help').hidden = !value;
+  find('#invite-field').hidden = !value;
+  login.elements.invite.disabled = !value;
+  login.elements.invite.required = value;
+  login.elements.password.autocomplete = value ? 'new-password' : 'current-password';
+}
+
+function field(parent, object, key, title, type = 'text') {
+  const label = el('label', title, parent);
+  const input = el(type === 'textarea' ? 'textarea' : 'input', '', label);
+  if (type !== 'textarea') input.type = type;
+  if (type === 'number') { input.min = '0'; input.step = '1'; }
+  if (type === 'checkbox') input.checked = object[key];
+  else input.value = object[key] ?? '';
+  input.addEventListener('input', () => {
+    object[key] = type === 'checkbox' ? input.checked
+      : type === 'number' ? (input.value === '' ? null : input.valueAsNumber) : input.value;
+    setDirty();
+  });
+  return input;
+}
+
+function section(id, title) {
+  const node = el('section', '', find('#fields'));
+  node.className = 'admin-card';
+  node.id = id;
+  el('h2', title, node);
+  return node;
+}
+
+function fields(parent, object, schema) {
+  const group = el('div', '', parent);
+  group.className = 'form-fields';
+  for (const [key, label, type] of schema) field(group, object, key, label, type);
+}
+
+function button(parent, label, callback) {
+  const node = el('button', label, parent);
+  node.type = 'button';
+  node.addEventListener('click', callback);
+  return node;
+}
+
+function collection(parent, title, records, schema, create) {
+  el('h3', title, parent);
+  const rows = el('div', '', parent);
+  function renderRows() {
+    rows.replaceChildren();
+    records.forEach((record, index) => {
+      const row = el('div', '', rows);
+      row.className = 'editor-row';
+      if (record.src) {
+        const preview = el('img', '', row);
+        preview.src = new URL(record.src, new URL('../', location.href)).href;
+        preview.alt = record.alt || record.name || 'Фото';
+      }
+      fields(row, record, schema);
+      button(row, 'Удалить запись ' + (index + 1), () => {
+        records.splice(index, 1);
+        renderRows();
+        setDirty();
+      });
+    });
+  }
+  renderRows();
+  if (create) button(parent, 'Добавить', () => {
+    records.push(create());
+    renderRows();
+    setDirty();
+    rows.lastElementChild?.querySelector('input')?.focus();
+  });
+}
+
+async function compress(file) {
+  if (!['image/jpeg', 'image/webp', 'image/png'].includes(file.type)) throw new Error('Выберите JPEG, PNG или WebP.');
+  if (file.size > 20 * 1024 * 1024) throw new Error('Исходное фото должно быть меньше 20 МБ.');
+  const image = await createImageBitmap(file);
+  const scale = Math.min(1, 1600 / Math.max(image.width, image.height));
+  const canvas = document.createElement('canvas');
+  canvas.width = Math.max(1, Math.round(image.width * scale));
+  canvas.height = Math.max(1, Math.round(image.height * scale));
+  canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
+  image.close();
+  const result = await new Promise((resolve) => canvas.toBlob(resolve, 'image/webp', .82));
+  if (!result) throw new Error('Фото не удалось обработать.');
+  return result;
+}
+
+function uploadControl(parent, label, callback) {
+  const input = el('input', '', el('label', label, parent));
+  input.type = 'file';
+  input.accept = 'image/jpeg,image/webp,image/png';
+  input.addEventListener('change', () => {
+    const file = input.files[0];
+    input.value = '';
+    if (file) operation(async () => {
+      const image = await compress(file);
+      const { src } = await api('photos', 'POST', image);
+      callback(src);
+      setDirty();
+    });
+  });
+}
+
+function render() {
+  find('#fields').replaceChildren();
+  const details = section('details', 'О шоуруме');
+  fields(details, draft, [['name','Название'], ['profession','Специализация'], ['status','Текст кнопки записи'], ['area','Адрес и район выезда'], ['schedule','График']]);
+  fields(details, draft.hero, [['title','Заголовок'], ['accent','Цветная строка заголовка'], ['description','Текст первого экрана','textarea']]);
+
+  const media = section('media', 'Фотографии');
+  const preview = el('img', '', media);
+  preview.className = 'hero-preview';
+  preview.src = new URL(draft.hero.image, new URL('../', location.href)).href;
+  preview.alt = draft.hero.imageAlt;
+  field(media, draft.hero, 'imageAlt', 'Описание главного фото');
+  uploadControl(media, 'Заменить главное фото', (src) => {
+    draft.hero.image = src;
+    draft.hero.imageSmall = '';
+    preview.src = src;
+  });
+  collection(media, 'Галерея работ', draft.gallery, [['alt','Описание фото']]);
+  uploadControl(media, 'Добавить фото в галерею', (src) => {
+    draft.gallery.push({ src, alt: '' });
+    render();
+    location.hash = '#media';
+  });
+
+  const prices = section('prices', 'Услуги и скидки');
+  field(prices, draft, 'discountPercent', 'Общая скидка, %', 'number');
+  el('p', 'Пустая скидка у услуги означает общую. Чтобы исключить услугу из акции, укажите 0.', prices);
+  collection(prices, 'Прайс-лист', draft.services,
+    [['title','Название'], ['section','Раздел'], ['category','Площадь или категория'], ['duration','Префикс цены (от)'], ['price','Цена, ₽','number'], ['discountPercent','Скидка услуги, %','number'], ['description','Описание','textarea']],
+    () => ({id: crypto.randomUUID(), title: '', section: 'Натяжные потолки', category: '', duration: '', price: 0, discountPercent: null, description: ''}));
+
+  const contacts = section('contacts', 'Связь с клиентами');
+  fields(contacts, draft, [['phone','Телефон для звонков','tel'], ['telegram','Ник или номер Telegram'], ['whatsapp','Номер WhatsApp','tel'], ['max','Ссылка на чат MAX','url']]);
+  fields(contacts, draft.channels, [['telegram','Показывать Telegram','checkbox'], ['whatsapp','Показывать WhatsApp','checkbox'], ['max','Показывать MAX','checkbox']]);
+  el('p', 'Если все мессенджеры отключены, сайт предложит позвонить.', contacts);
+
+  const reviews = section('reputation', 'Отзывы');
+  collection(reviews, 'Отзывы клиентов', draft.reviews, [['name','Имя клиента'], ['task','Что сделали'], ['quote','Текст отзыва','textarea'], ['source','Площадка'], ['link','Ссылка на отзыв'], ['src','Путь к фотографии отзыва']], () => ({name:'', task:'', quote:''}));
+}
+
+async function openEditor() {
+  state = await api('settings');
+  draft = structuredClone(state.config);
+  render();
+  setDirty(false);
+  find('#login-panel').hidden = true;
+  find('#editor').hidden = false;
+  find('#logout').hidden = staticDemo;
+}
+
+find('#auth-toggle').onclick = () => switchAuth(!activating);
+login.onsubmit = (event) => {
+  event.preventDefault();
+  operation(async () => {
+    await api(activating ? 'activate' : 'login', 'POST', Object.fromEntries(new FormData(login)));
+    login.reset();
+    await openEditor();
+  });
+};
+form.onsubmit = (event) => {
+  event.preventDefault();
+  operation(async () => {
+    state = await api('settings', 'PUT', { revision: state.revision, config: draft });
+    setDirty(false);
+    notice.textContent = staticDemo ? 'Изменения сохранены в этом браузере.' : 'Изменения опубликованы.';
+  });
+};
+find('#logout').onclick = () => operation(async () => {
+  if (dirty && !confirm('Выйти без сохранения изменений?')) return;
+  await api('logout', 'POST');
+  sessionStorage.removeItem('master-login');
+  location.replace('/login/');
+});
+addEventListener('beforeunload', (event) => { if (dirty) event.preventDefault(); });
+
+openEditor().catch((error) => {
+  if (error.status !== 401) report(error);
+  const identification = JSON.parse(sessionStorage.getItem('master-login') || 'null');
+  if (identification) {
+    login.elements.phone.value = '+' + identification.phone;
+    login.elements.phone.dispatchEvent(new Event('input'));
+    switchAuth(identification.activate);
+  }
+  find('#login-panel').hidden = false;
+});
+
+});
+</script>
+</head>
+<body class="admin">
+  <header class="admin-header"><div class="wrap"><a href="../index.html">На сайт</a><button id="logout" type="button" hidden>Выйти</button></div></header>
+  <main class="wrap">
+    <h1>Демо кабинета</h1><p>Правки сохраняются в этом браузере и видны только на этом устройстве.</p>
+    <p id="message" role="status"></p>
+    <section id="login-panel" hidden>
+      <form id="login">
+        <h2 id="auth-title">Вход</h2>
+        <p id="auth-help" hidden>Для регистрации нужен одноразовый ключ, который выдаёт администратор сайта.</p>
+        <label>Номер мастера<input name="phone" type="tel" autocomplete="username" required placeholder="+7 999 000-00-00"></label>
+        <label id="invite-field" hidden>Ключ активации<input name="invite" type="text" autocomplete="off" disabled></label>
+        <label>Пароль<input name="password" type="password" autocomplete="current-password" minlength="7" maxlength="128" required></label>
+        <button class="button button-primary" type="submit" id="auth-action">Войти</button>
+        <button class="text-button" type="button" id="auth-toggle">Активировать кабинет</button>
+      </form>
+    </section>
+    <section id="editor" hidden>
+      <nav class="admin-nav" aria-label="Настройки сайта">
+        <a href="#details">О шоуруме</a><a href="#media">Фото</a><a href="#prices">Цены</a><a href="#contacts">Связь</a><a href="#reputation">Отзывы</a>
+      </nav>
+      <form id="site-form">
+        <div id="fields"></div>
+        <div class="save-bar">
+          <span id="save-state" aria-live="polite">Нет несохранённых изменений</span>
+          <button id="save" class="button button-primary" type="submit" disabled>Сохранить изменения</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
