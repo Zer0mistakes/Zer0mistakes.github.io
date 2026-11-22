@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="aks-shadow" x1="65" y1="15" x2="85" y2="85" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#11191d"/>
+      <stop offset="100%" stop-color="#0b4638"/>
+    </linearGradient>
+    <linearGradient id="aks-ring" x1="15" y1="15" x2="80" y2="85" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00b386"/>
+      <stop offset="55%" stop-color="#008f6d"/>
+      <stop offset="100%" stop-color="#00a37c"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="36" stroke="url(#aks-shadow)" stroke-width="24"/>
+  <path d="M 76.75 25.91 A 36 36 0 1 0 76.75 74.09" stroke="url(#aks-ring)" stroke-width="24" stroke-linecap="round"/>
+</svg>
