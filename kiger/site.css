@@ -829,7 +829,7 @@ dialog .close {
   .hero h1 { font-size: clamp(34px, 10vw, 54px); }
   .showreel { grid-template-columns: 1fr; }
   .film-copy { min-height: 360px; }
-  .film-player { width: min(100%, 340px); margin-inline: auto; }
+  .film-player { width: 100%; aspect-ratio: 4 / 3; }
   .studio-stats { grid-template-columns: 1fr; gap: 12px; }
   .gallery { grid-template-columns: 1fr; }
   .gallery figure:first-child,
