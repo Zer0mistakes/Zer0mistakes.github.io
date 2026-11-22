@@ -615,7 +615,7 @@ const money = amount => formatMoney.format(amount) + ' ₽';
 const digits = value => String(value || '').replace(/\D/g, '');
 const group = find('.services');
 const appointment = find('#appointment');
-const mobile = find('.mobile-action');
+const dock = find('#mobile-dock');
 
 let selected = new Map();
 let bookingVisible = false;
@@ -689,8 +689,21 @@ function renderOdometer(container, text) {
 }
 
 function updateMobileAction() {
-  mobile.textContent = 'К расчёту (' + selected.size + ')';
-  mobile.classList.toggle('active', selected.size > 0 && !bookingVisible);
+  if (!dock) return;
+  const label = find('#mobile-dock-label');
+  const sum = find('#mobile-dock-sum');
+  const btn = find('.mobile-dock-btn');
+  const total = find('#total');
+  if (selected.size > 0) {
+    if (label) label.textContent = 'Выбрано позиций: ' + selected.size;
+    if (sum) sum.textContent = total?.value || 'В расчёте';
+    if (btn) btn.textContent = 'Оформить →';
+  } else {
+    if (label) label.textContent = 'Выезд инженера';
+    if (sum) sum.textContent = 'Бесплатно';
+    if (btn) btn.textContent = 'Рассчитать →';
+  }
+  dock.classList.toggle('is-hidden', bookingVisible);
 }
 
 function updateSummary(config) {
@@ -1055,6 +1068,9 @@ function render(config) {
   for (const element of document.querySelectorAll('[data-schedule]')) element.textContent = config.schedule;
   for (const anchor of document.querySelectorAll('[data-phone]')) {
     anchor.textContent = config.phone;
+    anchor.href = 'tel:+' + digits(config.phone);
+  }
+  for (const anchor of document.querySelectorAll('[data-phone-icon]')) {
     anchor.href = 'tel:+' + digits(config.phone);
   }
 
@@ -1424,6 +1440,7 @@ form.addEventListener('submit', async (event) => {
     </nav>
     <div class="bar-actions">
       <a class="phone" data-phone href="tel:+73433448050">+7 (343) 344-80-50</a>
+      <a class="mobile-call-btn" data-phone-icon href="tel:+73433448050" aria-label="Позвонить">☎ Позвонить</a>
       <a class="login-link" href="#login-dialog" data-open-login aria-haspopup="dialog">Войти</a>
     </div>
   </div>
@@ -1616,6 +1633,7 @@ form.addEventListener('submit', async (event) => {
           <h2>Фото с объектов и из отзывов клиентов</h2>
         </div>
         <span class="meta">Арамиль · Екатеринбург · Свердловская область</span>
+        <span class="swipe-hint">Листайте влево →</span>
       </div>
       <div class="gallery" id="portfolio" data-reveal></div>
     </div>
@@ -1629,6 +1647,7 @@ form.addEventListener('submit', async (event) => {
           <h2>Оценка 5,0 по 177 отзывам</h2>
         </div>
         <span class="meta">Проверенные отзывы с фото</span>
+        <span class="swipe-hint">Листайте влево →</span>
       </div>
       <div class="review-grid" data-reveal></div>
       <div class="review-links">
@@ -1669,7 +1688,13 @@ form.addEventListener('submit', async (event) => {
   </section>
 </main>
 
-<a class="btn mobile-action" href="#booking">К расчёту</a>
+<div class="mobile-dock" id="mobile-dock" aria-label="Быстрый переход к расчёту">
+  <div class="mobile-dock-info">
+    <span id="mobile-dock-label">Выезд инженера</span>
+    <strong id="mobile-dock-sum">Бесплатно</strong>
+  </div>
+  <a class="btn mobile-dock-btn" href="#booking">Рассчитать →</a>
+</div>
 
 <dialog id="viewer" aria-label="Фотография монтажа ПМК-Архитектор">
   <div class="viewer-bar">
