@@ -21,7 +21,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 112px; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
 body {
   margin: 0;
   background: var(--paper);
@@ -90,11 +90,9 @@ button { cursor: pointer; }
 
 /* Header */
 .site-header {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 40;
   background: #0e0f10eb;
-  backdrop-filter: blur(14px);
   color: #f5f4ee;
   border-bottom: 1px solid var(--line-dark);
 }
@@ -870,7 +868,7 @@ button { cursor: pointer; }
 
 .summary {
   position: sticky;
-  top: 94px;
+  top: 24px;
   align-self: start;
   border-radius: 4px;
   background: var(--surface-dark);
