@@ -310,9 +310,13 @@ const group = find('.services');
 const appointment = find('#appointment');
 const mobile = find('.mobile-action');
 let selected = new Map();
+let areaValues = new Map();
 let bookingVisible = false;
 let galleryItems = [];
 let viewerIndex = 0;
+
+const isMeterService = service => /за\s*1?\s*м²/i.test(service.title) && service.price > 0;
+const getArea = service => areaValues.get(service.id) || 18;
 
 function el(tag, text, parent, className) {
   const node = document.createElement(tag);
@@ -322,9 +326,60 @@ function el(tag, text, parent, className) {
   return node;
 }
 
-function price(service, config) {
+function unitPrice(service, config) {
   const discount = service.discountPercent ?? config.discountPercent;
   return Math.round(service.price * (100 - discount) / 100);
+}
+
+function lineTotal(service, config) {
+  const unit = unitPrice(service, config);
+  return isMeterService(service) ? unit * getArea(service) : unit;
+}
+
+function renderOdometer(container, text) {
+  if (!container) return;
+  if (reducedMotion) {
+    container.textContent = text;
+    return;
+  }
+  const prev = container.dataset.odoText || '';
+  if (prev === text && container.querySelector('.odometer')) return;
+  container.dataset.odoText = text;
+
+  const canUpdate = container.querySelector('.odometer')
+    && prev.replace(/\d/g, '#') === text.replace(/\d/g, '#');
+  if (canUpdate) {
+    const reels = [...container.querySelectorAll('.odo-reel')];
+    const nextDigits = [...text].filter(ch => /\d/.test(ch));
+    reels.forEach((reel, idx) => {
+      const d = Number(nextDigits[idx] || 0);
+      reel.style.transform = 'translateY(-' + (d * 1.08) + 'em)';
+    });
+    return;
+  }
+
+  const wrap = document.createElement('span');
+  wrap.className = 'odometer';
+  wrap.setAttribute('aria-label', text);
+  let digitIdx = 0;
+  for (const ch of text) {
+    if (/\d/.test(ch)) {
+      const box = el('span', '', wrap, 'odo-digit');
+      box.setAttribute('aria-hidden', 'true');
+      const reel = el('span', '', box, 'odo-reel');
+      reel.style.setProperty('--reel-i', String(digitIdx++));
+      for (let d = 0; d <= 9; d++) el('span', String(d), reel);
+      reel.style.transform = 'translateY(0em)';
+      const target = Number(ch);
+      requestAnimationFrame(() => {
+        reel.style.transform = 'translateY(-' + (target * 1.08) + 'em)';
+      });
+    } else {
+      const sep = el('span', ch, wrap, 'odo-sep');
+      sep.setAttribute('aria-hidden', 'true');
+    }
+  }
+  container.replaceChildren(wrap);
 }
 
 function updateMobileAction() {
@@ -335,19 +390,23 @@ function updateMobileAction() {
 function updateSummary(config) {
   const services = [...selected.values()];
   const total = find('#total');
-  find('#chosen').textContent = services.map(service => [service.title, service.category === 'Все размеры' ? '' : service.category].filter(Boolean).join(' · ')).join(' · ') || 'Отметьте позиции в каталоге или опишите задачу ниже.';
+  find('#chosen').textContent = services.map(service => {
+    const base = [service.title, service.category === 'Все размеры' ? '' : service.category].filter(Boolean).join(' · ');
+    return isMeterService(service) ? base + ' × ' + getArea(service) + ' м²' : base;
+  }).join(' · ') || 'Отметьте позиции в каталоге или опишите задачу ниже.';
   total.hidden = !services.length;
   find('#clear-services').hidden = !services.length;
-  const amount = services.reduce((sum, service) => sum + price(service, config), 0);
+  const amount = services.reduce((sum, service) => sum + lineTotal(service, config), 0);
   const byAgreement = services.some(service => !service.price);
   const nextValue = services.some(service => service.price > 0)
     ? (services.some(service => service.duration === 'от') ? 'От ' : '') + money(amount) + (byAgreement ? ' + работы по согласованию' : '')
     : 'Стоимость по согласованию';
-  if (total.value !== nextValue && services.length) {
-    total.classList.remove('price-pop');
-    void total.offsetWidth;
-    total.classList.add('price-pop');
-    setTimeout(() => total.classList.remove('price-pop'), 260);
+
+  if (services.length) {
+    renderOdometer(total, nextValue);
+  } else {
+    total.textContent = '';
+    delete total.dataset.odoText;
   }
   total.value = nextValue;
   updateMobileAction();
@@ -375,7 +434,7 @@ function renderServices(config) {
   sectionSelect.value = sections.includes(activeSection) ? activeSection : (sections[0] || '');
   find('.catalog-filters').hidden = !sections.length;
   find('#catalog-help').textContent = sections.length
-    ? 'Выберите раздел и отметьте нужные позиции — предварительный расчёт сразу подставится в заявку.'
+    ? 'Выберите раздел и отметьте нужные позиции — для расчёта за м² можно сразу покрутить площадь ползунком.'
     : 'Уточните стоимость на бесплатном замере.';
 
   const pickSection = name => {
@@ -410,23 +469,91 @@ function renderServices(config) {
   selected = new Map([...selected.keys()].filter(id => latest.has(id)).map(id => [id, latest.get(id)]));
   group.replaceChildren();
   for (const service of items.filter(item => !classes.length || !item.category || item.category === selector.value || item.category === 'Все размеры')) {
-    const label = el('label', '', group, 'row');
+    const meter = isMeterService(service);
+    const label = el('label', '', group, 'row' + (meter ? ' row-has-area' : ''));
     const body = el('span', '', label);
     el('strong', service.title, body);
     if (service.description) el('small', service.description, body);
-    const rate = el('span', service.price ? (service.duration === 'от' ? 'от ' : '') + money(price(service, config)) : 'По согласованию', label, 'rate');
-    if (service.price && price(service, config) !== service.price) el('s', money(service.price), rate);
+
+    const rate = el('span', '', label, 'rate');
+    const updateRateDisplay = () => {
+      const unit = unitPrice(service, config);
+      const totalAmt = lineTotal(service, config);
+      const prefix = service.duration === 'от' ? 'от ' : '';
+      if (!service.price) {
+        rate.textContent = 'По согласованию';
+        return;
+      }
+      if (meter && selected.has(service.id)) {
+        renderOdometer(rate, prefix + money(totalAmt));
+      } else {
+        rate.textContent = prefix + money(unit) + (meter ? '/м²' : '');
+        delete rate.dataset.odoText;
+      }
+      if (unit !== service.price && !meter) el('s', money(service.price), rate);
+    };
+
     const input = el('input', '', label);
     input.type = 'checkbox';
     input.checked = selected.has(service.id);
     label.classList.toggle('is-selected', input.checked);
     if (input.checked) selected.set(service.id, service);
+
+    let areaBox = null;
+    if (meter) {
+      areaBox = el('div', '', body, 'area-control');
+      areaBox.hidden = !input.checked;
+      areaBox.addEventListener('click', event => event.stopPropagation());
+
+      const top = el('div', '', areaBox, 'area-top');
+      const badge = el('span', getArea(service) + ' м²', top, 'area-badge');
+      const formula = el('span', getArea(service) + ' м² × ' + money(unitPrice(service, config)), top, 'area-formula');
+
+      const slider = el('input', '', areaBox, 'area-slider');
+      slider.type = 'range';
+      slider.min = '4';
+      slider.max = '120';
+      slider.step = '1';
+      slider.value = String(getArea(service));
+      slider.setAttribute('aria-label', 'Площадь в м² для ' + service.title);
+
+      const presets = el('div', '', areaBox, 'area-presets');
+      const presetValues = [12, 18, 35, 60, 90];
+      const presetBtns = presetValues.map(val => {
+        const b = el('button', val + ' м²', presets, 'area-preset');
+        b.type = 'button';
+        b.onclick = event => {
+          event.preventDefault();
+          event.stopPropagation();
+          slider.value = String(val);
+          syncArea(val);
+        };
+        return { val, btn: b };
+      });
+
+      const syncArea = val => {
+        const clamped = Math.max(4, Math.min(120, Number(val) || 18));
+        areaValues.set(service.id, clamped);
+        badge.textContent = clamped + ' м²';
+        formula.textContent = clamped + ' м² × ' + money(unitPrice(service, config));
+        const pct = ((clamped - 4) / (120 - 4)) * 100;
+        slider.style.setProperty('--pct', pct.toFixed(1) + '%');
+        presetBtns.forEach(({ val: pv, btn }) => btn.classList.toggle('is-active', pv === clamped));
+        updateRateDisplay();
+        updateSummary(config);
+      };
+      slider.addEventListener('input', () => syncArea(slider.value));
+      syncArea(getArea(service));
+    } else {
+      updateRateDisplay();
+    }
+
     input.addEventListener('change', () => {
       if (input.checked) selected.set(service.id, service);
       else selected.delete(service.id);
-      for (const row of group.querySelectorAll('.row')) {
-        row.classList.toggle('is-selected', row.querySelector('input').checked);
-      }
+      if (areaBox) areaBox.hidden = !input.checked;
+      label.classList.toggle('is-selected', input.checked);
+      updateRateDisplay();
       updateSummary(config);
     });
   }
@@ -513,7 +640,16 @@ function buildBookingMessage(config) {
   const data = new FormData(appointment);
   const lines = [
     'Здравствуйте! Хочу рассчитать стоимость и вызвать технолога на замер в «' + config.name + '».',
-    ...[...selected.values()].map(service => '• ' + [service.section, service.category, service.title].filter(Boolean).join(' / ') + ' — ' + (service.price ? (service.duration === 'от' ? 'от ' : '') + money(price(service, config)) : 'по согласованию')),
+    ...[...selected.values()].map(service => {
+      const label = [service.section, service.category, service.title].filter(Boolean).join(' / ');
+      if (!service.price) return '• ' + label + ' — по согласованию';
+      const prefix = service.duration === 'от' ? 'от ' : '';
+      if (isMeterService(service)) {
+        const area = getArea(service);
+        return '• ' + label + ': ' + area + ' м² × ' + money(unitPrice(service, config)) + ' = ' + prefix + money(lineTotal(service, config));
+      }
+      return '• ' + label + ' — ' + prefix + money(unitPrice(service, config));
+    }),
     'Имя: ' + data.get('customer').trim(),
     'Телефон: +7' + phoneDigits(data.get('phone')),
   ];
@@ -537,6 +673,66 @@ function openChannel(channelKey, config) {
     navigator.clipboard?.writeText(message).catch(() => {});
     find('#booking-hint').textContent = 'Текст заявки скопирован — вставьте его в чат MAX.';
     window.open(config.max, '_blank', 'noopener');
+  }
+}
+
+function initAcousticLab() {
+  const card = find('.acoustic-card');
+  const wave = find('.acoustic-wave');
+  if (!card || !wave) return;
+
+  const plainHeights = [0.68, 0.95, 0.52, 0.88, 0.74, 0.98, 0.61, 0.91, 0.84, 0.55, 0.94, 0.76, 0.89, 0.63, 0.97, 0.71, 0.86, 0.58, 0.92, 0.79, 0.85, 0.64, 0.9, 0.72];
+  const quietHeights = [0.16, 0.22, 0.14, 0.26, 0.18, 0.24, 0.15, 0.21, 0.25, 0.14, 0.22, 0.18, 0.24, 0.16, 0.2, 0.15, 0.23, 0.14, 0.21, 0.18, 0.24, 0.16, 0.19, 0.15];
+  wave.replaceChildren();
+  plainHeights.forEach((p, idx) => {
+    const bar = el('span', '', wave);
+    bar.style.setProperty('--bar-i', String(idx));
+    bar.style.setProperty('--bar-p', String(p));
+    bar.style.setProperty('--bar-q', String(quietHeights[idx]));
+  });
+
+  const copy = {
+    quiet: {
+      db: '29 дБ',
+      label: 'Мягкая тишина · эхо поглощено',
+      sound: '−45% эха и гула',
+      soundNote: 'Речь звучит чисто, без «эффекта пустой коробки»',
+      clean: '1–2 дня без пыли',
+      cleanNote: 'Сухая натяжка по готовому полу, без штукатурки',
+      crack: '0 трещин за 30 лет',
+      crackNote: 'Полотно эластично и не трескается в новостройках',
+    },
+    plain: {
+      db: '48 дБ',
+      label: 'Гулкое эхо · твёрдое отражение звука',
+      sound: 'Эхо от стен и потолка',
+      soundNote: 'Голоса и шаги отражаются от штукатурки и бетона',
+      clean: '2–4 недели мокрых работ',
+      cleanNote: 'Штукатурка, грунтовка, шпаклёвка, пыль и сушка слоёв',
+      crack: 'Риск паутинки и сколов',
+      crackNote: 'При усадке нового дома краска и штукатурка трескаются',
+    },
+  };
+
+  for (const btn of card.querySelectorAll('[data-acoustic-btn]')) {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.acousticBtn;
+      card.dataset.mode = mode;
+      for (const other of card.querySelectorAll('[data-acoustic-btn]')) {
+        const active = other === btn;
+        other.classList.toggle('is-active', active);
+        other.setAttribute('aria-selected', String(active));
+      }
+      const data = copy[mode];
+      find('#acoustic-db').textContent = data.db;
+      find('#acoustic-label').textContent = data.label;
+      find('#spec-sound').textContent = data.sound;
+      find('#spec-sound-note').textContent = data.soundNote;
+      find('#spec-clean').textContent = data.clean;
+      find('#spec-clean-note').textContent = data.cleanNote;
+      find('#spec-crack').textContent = data.crack;
+      find('#spec-crack-note').textContent = data.crackNote;
+    });
   }
 }
 
@@ -637,6 +833,7 @@ function prefillPhone() {
 }
 window.addEventListener('customer-phone-updated', prefillPhone);
 prefillPhone();
+initAcousticLab();
 
 render(staticDemo ? demoProfile() : DEFAULT_CONFIG);
 if (!staticDemo) {
@@ -889,8 +1086,12 @@ form.addEventListener('submit', async (event) => {
 <div class="scroll-progress" aria-hidden="true"></div>
 <header class="site-header" id="top">
   <div class="frame bar">
-    <a class="brand" href="#top" aria-label="Тихие стены — наверх">
-      <img class="brand-photo" src="assets/tihie-steny.svg" alt="Тихие стены — Казань" width="1240" height="220">
+    <a class="brand brand-lockup" href="#top" aria-label="Тихие стены — наверх">
+      <img class="brand-mark" src="assets/tihie-steny-mark.svg" alt="" width="112" height="88">
+      <span class="brand-text">
+        <strong>ТИХИЕ СТЕНЫ</strong>
+        <small>КАЗАНЬ · ПОТОЛКИ И СТЕНЫ</small>
+      </span>
     </a>
     <nav class="menu" aria-label="Основная навигация">
       <a href="#services">Калькулятор</a>
@@ -1008,6 +1209,50 @@ form.addEventListener('submit', async (event) => {
       </div>
 
       <div class="gallery" id="portfolio" data-reveal></div>
+    </div>
+  </section>
+
+  <section class="acoustic-band" id="acoustic-lab">
+    <div class="frame section">
+      <div class="acoustic-card" data-reveal data-mode="quiet">
+        <div class="acoustic-head">
+          <div>
+            <span class="eyebrow">ЭФФЕКТ ТИХИХ СТЕН</span>
+            <h2>Почувствуйте разницу по звуку и тишине</h2>
+            <p class="note">Обычные окрашенные стены отражают звук и дают гулкое эхо. Архитектурный текстиль с акустической подложкой поглощает лишний шум и делает комнату ощутимо тише.</p>
+          </div>
+          <div class="acoustic-switch" role="tablist" aria-label="Сравнение отделки стен">
+            <button type="button" class="pill-btn" data-acoustic-btn="plain" role="tab" aria-selected="false">Обычные стены</button>
+            <button type="button" class="pill-btn is-active" data-acoustic-btn="quiet" role="tab" aria-selected="true">Тихие стены</button>
+          </div>
+        </div>
+
+        <div class="acoustic-meter">
+          <div class="acoustic-wave" aria-hidden="true"></div>
+          <div class="acoustic-readout">
+            <strong id="acoustic-db">29 дБ</strong>
+            <span id="acoustic-label">Мягкая тишина · эхо поглощено</span>
+          </div>
+        </div>
+
+        <div class="acoustic-specs">
+          <div class="spec-box">
+            <span>АКУСТИКА</span>
+            <strong id="spec-sound">−45% эха и гула</strong>
+            <small id="spec-sound-note">Речь звучит чисто, без «эффекта пустой коробки»</small>
+          </div>
+          <div class="spec-box">
+            <span>МОНТАЖ</span>
+            <strong id="spec-clean">1–2 дня без пыли</strong>
+            <small id="spec-clean-note">Сухая натяжка по готовому полу, без штукатурки</small>
+          </div>
+          <div class="spec-box">
+            <span>УСАДКА ДОМА</span>
+            <strong id="spec-crack">0 трещин за 30 лет</strong>
+            <small id="spec-crack-note">Полотно эластично и не трескается в новостройках</small>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
