@@ -279,7 +279,7 @@ function bindPhone(input) {
 }
 
 
-const key = 'tihie-steny-demo-profile-v1';
+const key = 'tihie-steny-demo-profile-v2';
 
 function demoProfile() {
   try {
@@ -737,6 +737,9 @@ function initAcousticLab() {
 }
 
 function render(config) {
+  const brandTitle = find('.brand-text strong');
+  if (brandTitle && config.name) brandTitle.textContent = config.name.toUpperCase();
+  if (config.name) document.title = config.name + ' — потолки, текстильные стены и свет';
   find('#profession').textContent = config.profession;
   find('#status').textContent = config.status;
   find('#lead').textContent = config.hero.description;
@@ -763,7 +766,10 @@ function render(config) {
   const tg = find('#tg-contact');
   if (tg) {
     tg.hidden = !enabled.telegram;
-    if (enabled.telegram) tg.href = telegramLink(config.telegram);
+    if (enabled.telegram) {
+      tg.href = telegramLink(config.telegram);
+      tg.textContent = 'Telegram (' + (config.telegram.startsWith('+') || config.telegram.startsWith('@') ? config.telegram : '@' + config.telegram) + ')';
+    }
   }
   const messenger = find('#messenger');
   if (messenger) {
@@ -836,7 +842,14 @@ prefillPhone();
 initAcousticLab();
 
 render(staticDemo ? demoProfile() : DEFAULT_CONFIG);
-if (!staticDemo) {
+if (staticDemo) {
+  window.addEventListener('storage', event => {
+    if (event.key === 'tihie-steny-demo-profile-v2') render(demoProfile());
+  });
+  window.addEventListener('pageshow', event => {
+    if (event.persisted) render(demoProfile());
+  });
+} else {
   fetch('/api/site').then(response => response.ok ? response.json() : null).then(config => {
     if (config) render(config);
   }).catch(() => {});

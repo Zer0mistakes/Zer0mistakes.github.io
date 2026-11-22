@@ -275,7 +275,7 @@ function bindPhone(input) {
 }
 
 
-const key = 'tihie-steny-demo-profile-v1';
+const key = 'tihie-steny-demo-profile-v2';
 
 function demoProfile() {
   try {
@@ -310,8 +310,8 @@ const list = (value, max, convert, min = 0) => {
 };
 const mediaPath = /^\/media\/[a-f0-9-]{36}\.(webp|png|jpg)$/;
 const photo = (value, demo = false) => {
-  if (demo && typeof value === "string" && value.length < 2700000 && /^data:image\/webp;base64,[a-z0-9+/=]+$/i.test(value)) return value;
-  if (value === DEFAULT_CONFIG.hero.image || [...DEFAULT_CONFIG.gallery, ...DEFAULT_CONFIG.reviews].some(photo => photo.src === value) || mediaPath.test(value)) return value;
+  if (demo && typeof value === "string" && value.length < 2700000 && /^data:image\/(?:webp|png|jpeg);base64,[a-z0-9+/=]+$/i.test(value)) return value;
+  if (/^assets\/[\w.-]+\.(?:webp|png|jpg|svg)$/.test(value) || value === DEFAULT_CONFIG.hero.image || [...DEFAULT_CONFIG.gallery, ...DEFAULT_CONFIG.reviews].some(photo => photo.src === value) || mediaPath.test(value)) return value;
   throw new Error('Загрузите фотографию через кабинет.');
 };
 
@@ -418,6 +418,8 @@ function setDirty(value = true) {
 
 function report(error) {
   notice.textContent = error.message;
+  const saveState = find('#save-state');
+  if (saveState) saveState.textContent = 'Ошибка: ' + error.message;
   notice.scrollIntoView({ block: 'nearest' });
 }
 
@@ -450,9 +452,10 @@ function field(parent, object, key, title, type = 'text') {
   if (type === 'number') { input.min = '0'; input.step = '1'; }
   if (type === 'checkbox') input.checked = object[key];
   else input.value = object[key] ?? '';
-  input.addEventListener('input', () => {
+  const eventName = type === 'checkbox' ? 'change' : 'input';
+  input.addEventListener(eventName, () => {
     object[key] = type === 'checkbox' ? input.checked
-      : type === 'number' ? (input.value === '' ? null : input.valueAsNumber) : input.value;
+      : type === 'number' ? (input.value === '' ? null : (Number.isNaN(input.valueAsNumber) ? 0 : input.valueAsNumber)) : input.value;
     setDirty();
   });
   return input;
@@ -604,7 +607,9 @@ form.onsubmit = (event) => {
   operation(async () => {
     state = await api('settings', 'PUT', { revision: state.revision, config: draft });
     setDirty(false);
-    notice.textContent = staticDemo ? 'Изменения сохранены в этом браузере.' : 'Изменения опубликованы.';
+    const msg = staticDemo ? 'Изменения сохранены в этом браузере.' : 'Изменения опубликованы.';
+    notice.textContent = msg;
+    find('#save-state').textContent = msg;
   });
 };
 find('#logout').onclick = () => operation(async () => {
