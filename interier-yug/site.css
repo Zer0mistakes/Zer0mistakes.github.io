@@ -36,9 +36,17 @@ body {
   padding-bottom: 0;
 }
 
-main, section, .site-header, .mobile-dock {
+main, section, .site-header {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.mobile-dock {
   max-width: 100%;
 }
+
+[hidden] { display: none !important; }
 
 .hero-body,
 .hero-atelier,
@@ -753,6 +761,7 @@ input[type="range"] {
 
 .services {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 12px;
 }
 
@@ -982,6 +991,7 @@ input[type="range"] {
 
 .booking-actions {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 8px;
   margin-top: 4px;
 }
@@ -1132,6 +1142,7 @@ input[type="range"] {
 
 .contact-cards {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 14px;
 }
 
