@@ -35,9 +35,17 @@ body {
   max-width: 100%;
 }
 
-main, section, .site-header, .mobile-dock {
+main, section, .site-header {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.mobile-dock {
   max-width: 100%;
 }
+
+[hidden] { display: none !important; }
 
 .hero-copy,
 .blueprint-note,
@@ -479,6 +487,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
 
 .rooms-list {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 8px;
 }
 
@@ -699,7 +708,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
 
 .sr-select { display: none; }
 
-.services { display: grid; gap: 12px; }
+.services { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
 
 .service-card {
   display: grid;
@@ -904,7 +913,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
   border-color: var(--cobalt);
 }
 
-.booking-actions { display: grid; gap: 8px; margin-top: 4px; }
+.booking-actions { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; margin-top: 4px; }
 .booking-actions .btn { width: 100%; padding: 13px 16px; }
 
 /* Gallery & Reviews */
@@ -1021,7 +1030,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .payment-note { margin: 14px 0 22px; font-size: 13.5px; color: #94A3B8; }
 .contact-routes { display: flex; flex-wrap: wrap; gap: 10px; }
 
-.contact-cards { display: grid; gap: 14px; }
+.contact-cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
 .contact-card {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.14);
