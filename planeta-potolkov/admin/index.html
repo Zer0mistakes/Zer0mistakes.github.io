@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="ru" data-static-demo>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Кабинет мастера — Планета потолков</title>
+  <link rel="stylesheet" href="./base.css">
+  <link rel="stylesheet" href="./admin.css">
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+const DEFAULT_CONFIG = {
+  "name": "Планета потолков",
+  "profession": "Казань · Натяжные потолки, дизайн-проект освещения и электромонтаж",
+  "status": "Заказать замер и проект",
+  "area": "Казань и пригороды · выезд на замер в удобное время",
+  "schedule": "Ежедневно 07:00 — 22:00",
+  "phone": "+7-927-407-44-54",
+  "whatsapp": "79274074454",
+  "telegram": "VideoAirat",
+  "max": "",
+  "channels": {
+    "whatsapp": true,
+    "telegram": true,
+    "max": false
+  },
+  "demo": false,
+  "about": "Монтаж натяжных потолков любой геометрии и электромонтажные работы в Казани: замкнутые световые линии (в том числе со скруглёнными углами), скрытые карнизные ниши с LED-подсветкой, трековые шинопроводы и дизайн-проекты освещения.",
+  "discountPercent": 0,
+  "hero": {
+    "title": "Натяжные потолки и световая архитектура",
+    "accent": "в Казани под ключ",
+    "description": "Разрабатываем дизайн-проект освещения и монтируем натяжные потолки со световыми линиями, скруглёнными контурами, чёрными треками и скрытыми карнизами с подсветкой. Замер утром — готовый потолок уже к вечеру.",
+    "image": "assets/work-rounded-lines.webp",
+    "imageSmall": "",
+    "imageAlt": "Натяжной потолок с замкнутой световой линией со скруглёнными углами — Планета потолков"
+  },
+  "gallery": [
+    {
+      "src": "assets/work-rounded-lines.webp",
+      "alt": "Замкнутая световая LED-линия со скруглёнными углами и встроенными точечными светильниками"
+    },
+    {
+      "src": "assets/work-curtain-niche.webp",
+      "alt": "Скрытая карнизная ниша с тёплой светодиодной подсветкой и чёрным профилем"
+    },
+    {
+      "src": "assets/rev-evelina.webp",
+      "alt": "Пересекающиеся прямоугольные световые линии и чёрный трековый профиль (фото клиента)"
+    },
+    {
+      "src": "assets/work-kitchen-led.webp",
+      "alt": "Кухня со встроенной угловой линейной LED-подсветкой над гарнитуром"
+    },
+    {
+      "src": "assets/work-diag-hall.webp",
+      "alt": "Коридор с перекрещивающимися диагональными световыми LED-линиями"
+    },
+    {
+      "src": "assets/work-black-track.webp",
+      "alt": "Чёрный трековый шинопровод с тремя цилиндрическими спотами"
+    },
+    {
+      "src": "assets/work-floating-warm.webp",
+      "alt": "Тёплая парящая подсветка по периметру стен и оконного проёма"
+    },
+    {
+      "src": "assets/work-room-contour.webp",
+      "alt": "Матовый потолок со встроенными точечными светильниками и контурной подсветкой"
+    }
+  ],
+  "facts": [
+    {
+      "value": "5,0 в 2ГИС",
+      "text": "14 оценок и 13 отзывов — все оценки 5 звёзд"
+    },
+    {
+      "value": "Замер и монтаж",
+      "text": "Замер утром — установка готового потолка возможна в тот же день"
+    },
+    {
+      "value": "07:00 – 22:00",
+      "text": "Работаем ежедневно с раннего утра до позднего вечера"
+    },
+    {
+      "value": "Потолки + свет",
+      "text": "Дизайн-проект, электромонтаж, треки, карнизы с LED-подсветкой"
+    }
+  ],
+  "reviews": [
+    {
+      "name": "Эвелина Ильясова",
+      "task": "Световые линии и трек · 19 декабря 2024",
+      "quote": "Заказывала потолки, очень все понравилось. Качественно, быстро. Ребята настоящие профессионалы, очень рада, что обратилась именно к ним. Подсказали, как будет лучше. Рекомендую. Отличная, четкая работа.",
+      "source": "2ГИС",
+      "link": "https://2gis.ru/kazan/firm/70000001084175425/tab/reviews",
+      "src": "assets/rev-evelina.webp"
+    },
+    {
+      "name": "Резеда Резеда",
+      "task": "Замер утром, монтаж после обеда · 26 февраля 2025",
+      "quote": "Выражаем Огромную Благодарность данной компании \"Планета Потолков\", в частности мастеру Айрату. Сегодня 26 февраля с утра приехал, сделал все замеры, все рассчитал и после обеда уже установил. На кухне теперь красота. Заказывайте, все сделано качественно. Большое Большое Спасибо.",
+      "source": "2ГИС",
+      "link": "https://2gis.ru/kazan/firm/70000001084175425/tab/reviews",
+      "src": "assets/work-kitchen-led.webp"
+    },
+    {
+      "name": "Булат Гайфуллин",
+      "task": "Дизайн-проект и натяжка потолков · 2 февраля 2025",
+      "quote": "Заказывал потолки в данной компании, сначала сделали классный дизайн-проект. Затем уже приступили к натяжке потолков, которыми я остался в восторге. Все сделали качественно и быстро. Цена порадовала. Рекомендую.",
+      "source": "2ГИС",
+      "link": "https://2gis.ru/kazan/firm/70000001084175425/tab/reviews",
+      "src": "assets/work-rounded-lines.webp"
+    },
+    {
+      "name": "Ленар Зиангиров",
+      "task": "Идеальная и аккуратная работа · 15 января 2025",
+      "quote": "Выражаю огромную благодарность компании. Компания профессионалов. Отношение к клиенту и качество на высоком уровне. Отдельно хочется отметить работу монтажника Айрата — специалист высокого класса, безупречная, идеальная работа, быстро и очень аккуратно. Рекомендую!",
+      "source": "2ГИС",
+      "link": "https://2gis.ru/kazan/firm/70000001084175425/tab/reviews",
+      "src": "assets/work-diag-hall.webp"
+    },
+    {
+      "name": "Вадим",
+      "task": "Широкий ассортимент и точные расчёты · 10 января 2025",
+      "quote": "Из всех компаний по работе с натяжными потолками, выбрал компанию «Планета потолков», работой доволен. Широкий ассортимент материала, точные расчеты, работа выполнена качественно и четко. Профессионалы своего дела, хорошая компания. Всем рекомендую.",
+      "source": "2ГИС",
+      "link": "https://2gis.ru/kazan/firm/70000001084175425/tab/reviews",
+      "src": "assets/work-curtain-niche.webp"
+    }
+  ],
+  "services": [
+    {
+      "id": "ceil-base",
+      "title": "Матовый / сатиновый натяжной потолок с установкой (1 м²)",
+      "section": "Натяжные потолки",
+      "category": "Полотна и свет",
+      "price": 650,
+      "description": "Полотно премиум-качества с аккуратным примыканием к стенам и точным расчётом площади.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "ceil-lines",
+      "title": "Световые LED-линии (прямые, диагональ, скруглённые углы, 1 п.м.)",
+      "section": "Натяжные потолки",
+      "category": "Полотна и свет",
+      "price": 2400,
+      "description": "Пересекающиеся, угловые и скруглённые световые контуры 3000K / 4000K / 5000K с блоками питания.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "ceil-float",
+      "title": "Парящий потолок с контурной LED-подсветкой (1 п.м.)",
+      "section": "Натяжные потолки",
+      "category": "Полотна и свет",
+      "price": 1400,
+      "description": "Мягкий световой ореол вдоль стены и оконного проёма для спальни, кухни или гостиной.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "ceil-curtain",
+      "title": "Скрытая карнизная ниша под шторы с подсветкой (1 п.м.)",
+      "section": "Натяжные потолки",
+      "category": "Полотна и свет",
+      "price": 2200,
+      "description": "Утопленный потолочный карниз с чёрным или белым стыковочным профилем и тёплой LED-лентой.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "elec-track",
+      "title": "Монтаж чёрного трекового шинопровода и спотов (1 п.м.)",
+      "section": "Свет и электромонтаж",
+      "category": "Работы",
+      "price": 1200,
+      "description": "Установка трековых систем на закладной, подключение и настройка направленных светильников.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "elec-wiring",
+      "title": "Электромонтаж и разводка кабеля под освещение",
+      "section": "Свет и электромонтаж",
+      "category": "Работы",
+      "price": 2500,
+      "description": "Профессиональная разводка линий питания, установка блоков и трансформаторов с удобным доступом.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "srv-design",
+      "title": "Замер и дизайн-проект освещения (при заказе монтажа)",
+      "section": "Свет и электромонтаж",
+      "category": "Работы",
+      "price": 0,
+      "description": "Выезд мастера Айрата с образцами полотен, расстановка линий и светильников, точная смета.",
+      "duration": "Бесплатно",
+      "discountPercent": null
+    }
+  ]
+};
+
+function phoneDigits(value) {
+  const digits = value.replace(/\D/g, '');
+  const hasPrefix = /^\s*\+7/.test(value) || (digits.length !== 10 && /^[78]/.test(digits));
+  return (hasPrefix ? digits.slice(1) : digits).slice(0, 10);
+}
+
+function bindPhone(input) {
+  const format = () => {
+    const digits = phoneDigits(input.value);
+    const parts = [digits.slice(0, 3), digits.slice(3, 6), digits.slice(6, 8), digits.slice(8, 10)];
+    input.value = '+7' + (digits ? ' ' + parts.filter(Boolean).join(' ') : '');
+    input.setCustomValidity(digits.length === 10 ? '' : 'Введите 10 цифр номера после +7.');
+  };
+  input.addEventListener('focus', () => { if (!input.value) format(); });
+  input.addEventListener('beforeinput', event => {
+    if (input.value === '+7' && input.selectionStart === input.value.length && /^[+78]$/.test(event.data ?? '')) {
+      event.preventDefault();
+    }
+  });
+  input.addEventListener('paste', event => {
+    if (!event.clipboardData) return;
+    const value = event.clipboardData.getData('text');
+    if (input.value === '+7' || input.selectionStart === 0 && input.selectionEnd === input.value.length) {
+      event.preventDefault();
+      input.value = value;
+      format();
+    }
+  });
+  input.addEventListener('input', () => {
+    if (input.value) format();
+    else input.setCustomValidity('');
+  });
+  input.addEventListener('blur', () => {
+    if (!phoneDigits(input.value)) {
+      input.value = '';
+      input.setCustomValidity('');
+    }
+  });
+  if (input.value) format();
+  return format;
+}
+
+
+const key = 'planeta-potolkov-demo-profile-v1';
+
+function demoProfile() {
+  try {
+    const stored = localStorage.getItem(key);
+    if (stored) return JSON.parse(stored);
+  } catch {
+    // Use defaults when the browser blocks access to local storage.
+  }
+  return structuredClone(DEFAULT_CONFIG);
+}
+
+function saveDemoProfile(config) {
+  try {
+    localStorage.setItem(key, JSON.stringify(config));
+  } catch {
+    throw new Error('Браузер не смог сохранить настройки. Уменьшите размер фотографий или разрешите локальное хранилище.');
+  }
+}
+
+
+const text = (value, max = 160, optional = false) => {
+  if (typeof value !== 'string' || value.length > max || (!optional && !value.trim())) throw new Error('Проверьте заполнение полей.');
+  return value.trim();
+};
+const number = (value, max) => {
+  if (!Number.isInteger(value) || value < 0 || value > max) throw new Error('Проверьте цену или скидку.');
+  return value;
+};
+const list = (value, max, convert, min = 0) => {
+  if (!Array.isArray(value) || value.length > max || value.length < min) throw new Error('Проверьте количество записей.');
+  return value.map(convert);
+};
+const mediaPath = /^\/media\/[a-f0-9-]{36}\.(webp|png|jpg)$/;
+const photo = (value, demo = false) => {
+  if (demo && typeof value === "string" && value.length < 2700000 && /^data:image\/(?:webp|png|jpeg);base64,[a-z0-9+/=]+$/i.test(value)) return value;
+  if (/^assets\/[\w.-]+\.(?:webp|png|jpg|svg)$/.test(value) || value === DEFAULT_CONFIG.hero.image || [...DEFAULT_CONFIG.gallery, ...DEFAULT_CONFIG.reviews].some(photo => photo.src === value) || mediaPath.test(value)) return value;
+  throw new Error('Загрузите фотографию через кабинет.');
+};
+
+function validateConfig(value, { demo = false } = {}) {
+  const result = structuredClone(DEFAULT_CONFIG);
+  for (const key of ['name', 'profession', 'status', 'area', 'schedule']) result[key] = text(value[key]);
+  result.phone = text(value.phone, 32);
+  if (!/^\+?[\d ()-]+$/.test(result.phone) || !/^\d{10,15}$/.test(result.phone.replace(/\D/g, ''))) throw new Error('Проверьте номер для звонков.');
+  result.telegram = text(value.telegram, 40, true);
+  result.whatsapp = text(value.whatsapp, 32, true);
+  result.max = text(value.max || '', 300, true);
+  result.channels = { telegram: value.channels?.telegram === true, whatsapp: value.channels?.whatsapp === true, max: value.channels?.max === true };
+  if (result.channels.telegram && !/^(?:@?[a-zA-Z0-9_]{5,32}|\+\d{10,15})$/.test(result.telegram)) throw new Error('Укажите корректный ник Telegram.');
+  if (result.channels.whatsapp && !/^\d{10,15}$/.test(result.whatsapp.replace(/\D/g, ''))) throw new Error('Укажите номер WhatsApp с кодом страны.');
+  if (result.channels.max && !/^https:\/\/max\.ru\/\S+$/.test(result.max)) throw new Error('Укажите корректную ссылку на чат MAX.');
+  result.demo = value.demo === true;
+  result.about = text(value.about, 1200);
+  result.discountPercent = number(value.discountPercent, 100);
+  result.hero = {
+    title: text(value.hero?.title),
+    accent: text(value.hero?.accent, 160, true),
+    description: text(value.hero?.description, 650),
+    image: photo(value.hero?.image, demo),
+    imageAlt: text(value.hero?.imageAlt, 200, true),
+    imageSmall: value.hero?.image === DEFAULT_CONFIG.hero.image ? DEFAULT_CONFIG.hero.imageSmall : '',
+  };
+  result.gallery = list(value.gallery, 12, (item) => ({ src: photo(item.src, demo), alt: text(item.alt, 200, true) }));
+  result.facts = list(value.facts, 8, (item) => ({ value: text(item.value, 48), text: text(item.text, 300) }));
+  result.reviews = list(value.reviews, 12, (item) => ({ name: text(item.name, 100), task: text(item.task, 150, true), quote: text(item.quote, 1000), src: item.src ? photo(item.src, demo) : "", source: text(item.source || "", 60, true), link: /^https:\/\/(?:yandex\.ru|2gis\.ru|flamp\.ru)\//.test(item.link) ? text(item.link, 500) : "" }));
+  result.services = list(value.services, 120, (item) => {
+    if (!/^[\w-]{1,64}$/.test(item.id)) throw new Error('Некорректный идентификатор услуги.');
+    return {
+      id: item.id,
+      title: text(item.title, 130),
+      description: text(item.description || "", 500, true),
+      section: text(item.section || "Натяжные потолки", 80),
+      category: text(item.category || "", 80, true),
+      duration: text(item.duration, 65, true),
+      price: number(item.price, 100000000),
+      discountPercent: item.discountPercent == null ? null : number(item.discountPercent, 100),
+    };
+  }, 1);
+  if (new Set(result.services.map((item) => item.id)).size !== result.services.length) throw new Error('Услуги должны быть уникальными.');
+  return result;
+}
+
+
+const staticDemo = document.documentElement.hasAttribute('data-static-demo');
+const find = (selector) => document.querySelector(selector);
+const notice = find('#message');
+const form = find('#site-form');
+const login = find('#login');
+const save = find('#save');
+bindPhone(login.elements.phone);
+
+let state;
+let draft;
+let activating = false;
+let busy = false;
+let dirty = false;
+
+function el(tag, text, parent) {
+  const node = document.createElement(tag);
+  if (text) node.textContent = text;
+  parent?.append(node);
+  return node;
+}
+
+async function api(path, method = 'GET', data) {
+  if (staticDemo) {
+    if (path === 'settings' && method === 'GET') return { config: demoProfile() };
+    if (path === 'settings' && method === 'PUT') {
+      const config = validateConfig(data.config, { demo: true });
+      saveDemoProfile(config);
+      return { config };
+    }
+    if (path === 'photos' && method === 'POST') {
+      const src = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error('Не удалось прочитать фото.'));
+        reader.readAsDataURL(data);
+      });
+      return { src };
+    }
+  }
+  const options = { method };
+  if (data instanceof Blob) options.body = data;
+  else if (data !== undefined) {
+    options.headers = { 'Content-Type': 'application/json' };
+    options.body = JSON.stringify(data);
+  }
+  const response = await fetch('/api/' + path, options);
+  const result = await response.json();
+  if (!response.ok) throw Object.assign(new Error(result.error), { status: response.status });
+  return result;
+}
+
+function setDirty(value = true) {
+  dirty = value;
+  save.disabled = !dirty || busy;
+  find('#save-state').textContent = dirty ? 'Есть несохранённые изменения' : 'Нет несохранённых изменений';
+}
+
+function report(error) {
+  notice.textContent = error.message;
+  const saveState = find('#save-state');
+  if (saveState) saveState.textContent = 'Ошибка: ' + error.message;
+  notice.scrollIntoView({ block: 'nearest' });
+}
+
+async function operation(action) {
+  if (busy) return;
+  busy = true;
+  form.inert = true;
+  save.disabled = true;
+  notice.textContent = '';
+  try { await action(); } catch (error) { report(error); }
+  finally { busy = false; form.inert = false; save.disabled = !dirty; }
+}
+
+function switchAuth(value) {
+  activating = value;
+  find('#auth-title').textContent = value ? 'Активация кабинета' : 'Вход';
+  find('#auth-action').textContent = value ? 'Активировать и войти' : 'Войти';
+  find('#auth-toggle').textContent = value ? 'Уже есть пароль' : 'Активировать кабинет';
+  find('#auth-help').hidden = !value;
+  find('#invite-field').hidden = !value;
+  login.elements.invite.disabled = !value;
+  login.elements.invite.required = value;
+  login.elements.password.autocomplete = value ? 'new-password' : 'current-password';
+}
+
+function field(parent, object, key, title, type = 'text') {
+  const label = el('label', title, parent);
+  const input = el(type === 'textarea' ? 'textarea' : 'input', '', label);
+  if (type !== 'textarea') input.type = type;
+  if (type === 'number') { input.min = '0'; input.step = '1'; }
+  if (type === 'checkbox') input.checked = object[key];
+  else input.value = object[key] ?? '';
+  const eventName = type === 'checkbox' ? 'change' : 'input';
+  input.addEventListener(eventName, () => {
+    object[key] = type === 'checkbox' ? input.checked
+      : type === 'number' ? (input.value === '' ? null : (Number.isNaN(input.valueAsNumber) ? 0 : input.valueAsNumber)) : input.value;
+    setDirty();
+  });
+  return input;
+}
+
+function section(id, title) {
+  const node = el('section', '', find('#fields'));
+  node.className = 'admin-card';
+  node.id = id;
+  el('h2', title, node);
+  return node;
+}
+
+function fields(parent, object, schema) {
+  const group = el('div', '', parent);
+  group.className = 'form-fields';
+  for (const [key, label, type] of schema) field(group, object, key, label, type);
+}
+
+function button(parent, label, callback) {
+  const node = el('button', label, parent);
+  node.type = 'button';
+  node.addEventListener('click', callback);
+  return node;
+}
+
+function collection(parent, title, records, schema, create) {
+  el('h3', title, parent);
+  const rows = el('div', '', parent);
+  function renderRows() {
+    rows.replaceChildren();
+    records.forEach((record, index) => {
+      const row = el('div', '', rows);
+      row.className = 'editor-row';
+      if (record.src) {
+        const preview = el('img', '', row);
+        preview.src = new URL(record.src, new URL('../', location.href)).href;
+        preview.alt = record.alt || record.name || 'Фото';
+      }
+      fields(row, record, schema);
+      button(row, 'Удалить запись ' + (index + 1), () => {
+        records.splice(index, 1);
+        renderRows();
+        setDirty();
+      });
+    });
+  }
+  renderRows();
+  if (create) button(parent, 'Добавить', () => {
+    records.push(create());
+    renderRows();
+    setDirty();
+    rows.lastElementChild?.querySelector('input')?.focus();
+  });
+}
+
+async function compress(file) {
+  if (!['image/jpeg', 'image/webp', 'image/png'].includes(file.type)) throw new Error('Выберите JPEG, PNG или WebP.');
+  if (file.size > 20 * 1024 * 1024) throw new Error('Исходное фото должно быть меньше 20 МБ.');
+  const image = await createImageBitmap(file);
+  const scale = Math.min(1, 1600 / Math.max(image.width, image.height));
+  const canvas = document.createElement('canvas');
+  canvas.width = Math.max(1, Math.round(image.width * scale));
+  canvas.height = Math.max(1, Math.round(image.height * scale));
+  canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
+  image.close();
+  const result = await new Promise((resolve) => canvas.toBlob(resolve, 'image/webp', .82));
+  if (!result) throw new Error('Фото не удалось обработать.');
+  return result;
+}
+
+function uploadControl(parent, label, callback) {
+  const input = el('input', '', el('label', label, parent));
+  input.type = 'file';
+  input.accept = 'image/jpeg,image/webp,image/png';
+  input.addEventListener('change', () => {
+    const file = input.files[0];
+    input.value = '';
+    if (file) operation(async () => {
+      const image = await compress(file);
+      const { src } = await api('photos', 'POST', image);
+      callback(src);
+      setDirty();
+    });
+  });
+}
+
+function render() {
+  find('#fields').replaceChildren();
+  const details = section('details', 'О компании');
+  fields(details, draft, [['name','Название'], ['profession','Специализация'], ['status','Текст кнопки записи'], ['area','Адрес и район выезда'], ['schedule','График']]);
+  fields(details, draft.hero, [['title','Заголовок'], ['accent','Цветная строка заголовка'], ['description','Текст первого экрана','textarea']]);
+
+  const media = section('media', 'Фотографии');
+  const preview = el('img', '', media);
+  preview.className = 'hero-preview';
+  preview.src = new URL(draft.hero.image, new URL('../', location.href)).href;
+  preview.alt = draft.hero.imageAlt;
+  field(media, draft.hero, 'imageAlt', 'Описание главного фото');
+  uploadControl(media, 'Заменить главное фото', (src) => {
+    draft.hero.image = src;
+    draft.hero.imageSmall = '';
+    preview.src = src;
+  });
+  collection(media, 'Галерея работ', draft.gallery, [['alt','Описание фото']]);
+  uploadControl(media, 'Добавить фото в галерею', (src) => {
+    draft.gallery.push({ src, alt: '' });
+    render();
+    location.hash = '#media';
+  });
+
+  const prices = section('prices', 'Услуги и скидки');
+  field(prices, draft, 'discountPercent', 'Общая скидка, %', 'number');
+  el('p', 'Пустая скидка у услуги означает общую. Чтобы исключить услугу из акции, укажите 0.', prices);
+  collection(prices, 'Прайс-лист', draft.services,
+    [['title','Название'], ['section','Раздел'], ['category','Площадь или категория'], ['duration','Префикс цены (от)'], ['price','Цена, ₽','number'], ['discountPercent','Скидка услуги, %','number'], ['description','Описание','textarea']],
+    () => ({id: crypto.randomUUID(), title: '', section: 'Натяжные потолки', category: '', duration: '', price: 0, discountPercent: null, description: ''}));
+
+  const contacts = section('contacts', 'Связь с клиентами');
+  fields(contacts, draft, [['phone','Телефон для звонков','tel'], ['telegram','Ник или номер Telegram'], ['whatsapp','Номер WhatsApp','tel'], ['max','Ссылка на чат MAX','url']]);
+  fields(contacts, draft.channels, [['telegram','Показывать Telegram','checkbox'], ['whatsapp','Показывать WhatsApp','checkbox'], ['max','Показывать MAX','checkbox']]);
+  el('p', 'Если все мессенджеры отключены, сайт предложит позвонить.', contacts);
+
+  const reviews = section('reputation', 'Отзывы');
+  collection(reviews, 'Отзывы клиентов', draft.reviews, [['name','Имя клиента'], ['task','Что сделали'], ['quote','Текст отзыва','textarea'], ['source','Площадка'], ['link','Ссылка на отзыв'], ['src','Путь к фотографии отзыва']], () => ({name:'', task:'', quote:''}));
+}
+
+async function openEditor() {
+  state = await api('settings');
+  draft = structuredClone(state.config);
+  render();
+  setDirty(false);
+  find('#login-panel').hidden = true;
+  find('#editor').hidden = false;
+  find('#logout').hidden = staticDemo;
+}
+
+find('#auth-toggle').onclick = () => switchAuth(!activating);
+login.onsubmit = (event) => {
+  event.preventDefault();
+  operation(async () => {
+    await api(activating ? 'activate' : 'login', 'POST', Object.fromEntries(new FormData(login)));
+    login.reset();
+    await openEditor();
+  });
+};
+form.onsubmit = (event) => {
+  event.preventDefault();
+  operation(async () => {
+    state = await api('settings', 'PUT', { revision: state.revision, config: draft });
+    setDirty(false);
+    const msg = staticDemo ? 'Изменения сохранены в этом браузере.' : 'Изменения опубликованы.';
+    notice.textContent = msg;
+    find('#save-state').textContent = msg;
+  });
+};
+find('#logout').onclick = () => operation(async () => {
+  if (dirty && !confirm('Выйти без сохранения изменений?')) return;
+  await api('logout', 'POST');
+  sessionStorage.removeItem('master-login');
+  location.replace('/login/');
+});
+addEventListener('beforeunload', (event) => { if (dirty) event.preventDefault(); });
+
+openEditor().catch((error) => {
+  if (error.status !== 401) report(error);
+  const identification = JSON.parse(sessionStorage.getItem('master-login') || 'null');
+  if (identification) {
+    login.elements.phone.value = '+' + identification.phone;
+    login.elements.phone.dispatchEvent(new Event('input'));
+    switchAuth(identification.activate);
+  }
+  find('#login-panel').hidden = false;
+});
+
+});
+</script>
+</head>
+<body class="admin">
+  <header class="admin-header"><div class="wrap"><a href="../index.html">На сайт</a><button id="logout" type="button" hidden>Выйти</button></div></header>
+  <main class="wrap">
+    <h1>Демо кабинета</h1><p>Правки сохраняются в этом браузере и видны только на этом устройстве.</p>
+    <p id="message" role="status"></p>
+    <section id="login-panel" hidden>
+      <form id="login">
+        <h2 id="auth-title">Вход</h2>
+        <p id="auth-help" hidden>Для регистрации нужен одноразовый ключ, который выдаёт администратор сайта.</p>
+        <label>Номер мастера<input name="phone" type="tel" autocomplete="username" required placeholder="+7 999 000-00-00"></label>
+        <label id="invite-field" hidden>Ключ активации<input name="invite" type="text" autocomplete="off" disabled></label>
+        <label>Пароль<input name="password" type="password" autocomplete="current-password" minlength="7" maxlength="128" required></label>
+        <button class="button button-primary" type="submit" id="auth-action">Войти</button>
+        <button class="text-button" type="button" id="auth-toggle">Активировать кабинет</button>
+      </form>
+    </section>
+    <section id="editor" hidden>
+      <nav class="admin-nav" aria-label="Настройки сайта">
+        <a href="#details">О компании</a><a href="#media">Фото</a><a href="#prices">Цены</a><a href="#contacts">Связь</a><a href="#reputation">Отзывы</a>
+      </nav>
+      <form id="site-form">
+        <div id="fields"></div>
+        <div class="save-bar">
+          <span id="save-state" aria-live="polite">Нет несохранённых изменений</span>
+          <button id="save" class="button button-primary" type="submit" disabled>Сохранить изменения</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
