@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="blagodar-bg" x1="8" y1="50" x2="92" y2="50" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6b1b1a"/>
+      <stop offset="100%" stop-color="#dc1d26"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="92" height="92" rx="22" fill="url(#blagodar-bg)"/>
+  <!-- Asymmetric calligraphic heart flowing into lightbulb -->
+  <path d="M 48 80 C 31 64 18 47 18 33 C 18 22 27 15 36 15 C 43 15 47 20 49 25 C 52 19 57 14 65 14 C 75 14 82 23 82 34 C 82 46 72 58 63 63 C 59 65 58 62 60 57 C 63 50 67 45 67 38 C 67 29 60 24 53 24 C 46 24 41 30 41 38 C 41 44 45 50 47 56 C 48 60 48 63 48 65" stroke="#ffffff" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Bold left crescent highlight of heart matching the original calligraphy -->
+  <path d="M 48 80 C 30 63 17 47 17 32 C 17 21 26 14 36 14 C 43 14 47 19 49 25 C 45 20 40 18 35 18 C 26 18 22 25 22 34 C 22 47 34 62 49 77 Z" fill="#ffffff"/>
+  <!-- Bulb screw base -->
+  <path d="M 45 67 H 60 M 46 71.5 H 59 M 47 76 H 58" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/>
+  <!-- Inner heart filament -->
+  <path d="M 53.5 64 V 46 C 53.5 40 47 37 47 42 C 47 46 53.5 50 53.5 50 C 53.5 50 60 46 60 42 C 60 37 53.5 40 53.5 46" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
