@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="ru" data-static-demo>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Интерьер Юг — Кабинет управления</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="stylesheet" href="./base.css">
+  <link rel="stylesheet" href="./admin.css">
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+const DEFAULT_CONFIG = {
+  "name": "Интерьер Юг",
+  "profession": "Краснодар · Мебель на заказ и ремонт помещений под ключ",
+  "status": "Заказать замер и расчёт",
+  "area": "Краснодар · ул. Зеленоградская, 40 (м-н Молодёжный, цокольный этаж, офис 1)",
+  "schedule": "Пн–Сб 10:00–19:00 (по предварительному звонку), Вс — выходной",
+  "phone": "+7 (918) 456-28-50",
+  "whatsapp": "79184562850",
+  "telegram": "+79186928592",
+  "max": "",
+  "channels": {
+    "whatsapp": true,
+    "telegram": true,
+    "max": false
+  },
+  "demo": false,
+  "about": "Многопрофильная производственная компания «Интерьер Юг» в Краснодаре: проектируем и изготавливаем кухни, шкафы, прихожие, детские и мягкую мебель по индивидуальным размерам, а также выполняем ремонт помещений и монтаж натяжных потолков под ключ.",
+  "discountPercent": 0,
+  "hero": {
+    "title": "Мебель по вашим эскизам и ремонт",
+    "accent": "в Краснодаре в одни руки",
+    "description": "Кухни, шкафы, прихожие, детские комнаты, мягкая мебель и комплексный ремонт помещений от собственной производственной мастерской. Точный замер, помощь с выбором материалов, доставка и сборка.",
+    "image": "assets/kitchen-sage.webp",
+    "imageSmall": "",
+    "imageAlt": "Угловая кухня в оттенке шалфей со встроенной техникой — Интерьер Юг, Краснодар"
+  },
+  "gallery": [
+    {
+      "src": "assets/kitchen-sage.webp",
+      "alt": "Угловая кухня в оттенке шалфей с чёрной мойкой и встроенным духовым шкафом"
+    },
+    {
+      "src": "assets/kitchen-wood-white.webp",
+      "alt": "Угловой кухонный гарнитур: нижние фасады под дерево и белые верхние шкафы"
+    },
+    {
+      "src": "assets/kitchen-concrete.webp",
+      "alt": "Современная угловая кухня с фасадами под серый бетон и светлой столешницей"
+    },
+    {
+      "src": "assets/kitchen-modern-wood.webp",
+      "alt": "Двухцветная кухня-студия с пеналом и столешницей в цвете натурального дуба"
+    },
+    {
+      "src": "assets/kitchen-classic-cream.webp",
+      "alt": "Классический кремовый кухонный гарнитур с фрезерованными фасадами"
+    },
+    {
+      "src": "assets/kids-room.webp",
+      "alt": "Детская комната под заказ: письменный стол, система стеллажей и диван-кровать"
+    },
+    {
+      "src": "assets/living-tv-wall.webp",
+      "alt": "Белая мебельная стенка для гостиной и ТВ-зоны со шкафами хранения"
+    },
+    {
+      "src": "assets/wardrobe-white.webp",
+      "alt": "Классический белый шкаф с декоративной нижней раскладкой фасадов"
+    },
+    {
+      "src": "assets/sofa-custom.webp",
+      "alt": "Мягкий диван по индивидуальным размерам с деревянной накладкой на подлокотник"
+    }
+  ],
+  "facts": [
+    {
+      "value": "4,6 ★ в 2ГИС",
+      "text": "Подтверждённый профиль · 14 оценок и 13 отзывов о качестве мебели и ремонта"
+    },
+    {
+      "value": "4,0 ★ на Яндексе",
+      "text": "Реальные работы и 5-звёздочные отзывы о сборке и консультациях"
+    },
+    {
+      "value": "Мебель + ремонт",
+      "text": "Всё в одних руках: от отделки помещения и потолков до финальной сборки"
+    },
+    {
+      "value": "Любая оплата",
+      "text": "Наличные, карта, перевод, QR-код и расчёт через банк (розница и опт)"
+    }
+  ],
+  "reviews": [
+    {
+      "name": "Анна Долгарева",
+      "task": "Кухня и повторные заказы · 17 марта 2026",
+      "quote": "Не однократно заказывали мебель, себе и маме и родственники заказывают только в Интерьер Юг. Очень приятные цены. Отдельное спасибо Андрею за отзывчивость и отличное качество работы. На фото мамина кухня, которую заказывали больше 10 лет назад и она как новенькая, фурнитура очень качественная, ничего не сломалось по сей день. Однозначно рекомендую!",
+      "source": "2ГИС",
+      "link": "https://2gis.ru/krasnodar/firm/70000001006529215/tab/reviews",
+      "src": "assets/kitchen-classic-cream.webp"
+    },
+    {
+      "name": "Мария Степман",
+      "task": "Кухонный гарнитур по эскизам · 14 марта 2026",
+      "quote": "Спасибо за шикарный кухонный гарнитур! Всё сделали по моим эскизам, помогали с выбором на каждом этапе! очень грамотные в своей компетенции люди работают! Спасибо ещё раз!",
+      "source": "2ГИС",
+      "link": "https://2gis.ru/krasnodar/firm/70000001006529215/tab/reviews",
+      "src": "assets/kitchen-wood-white.webp"
+    },
+    {
+      "name": "Екатерина Ли",
+      "task": "Прихожая под заказ · 13 марта 2026",
+      "quote": "11 марта заказала прихожку, а 12 марта ее доставили, собрали все установили. Большое спасибо за работу",
+      "source": "2ГИС",
+      "link": "https://2gis.ru/krasnodar/firm/70000001006529215/tab/reviews",
+      "src": "assets/wardrobe-white.webp"
+    },
+    {
+      "name": "Глеб Битюков",
+      "task": "Письменные столы · 29 марта 2026",
+      "quote": "Заказал письменные столы, привезли и собрали раньше оговоренного срока! Качеством доволен! Могу рекомендовать!",
+      "source": "2ГИС",
+      "link": "https://2gis.ru/krasnodar/firm/70000001006529215/tab/reviews",
+      "src": "assets/kids-room.webp"
+    },
+    {
+      "name": "Лера Ким",
+      "task": "Ремонт и мебель под ключ · 12 марта 2026",
+      "quote": "Спасибо большое интерьер Юг! за качественный ремонт! Мебель шикарная, все красиво и в срок установили. Лучшее соотношение цены и качества",
+      "source": "2ГИС",
+      "link": "https://2gis.ru/krasnodar/firm/70000001006529215/tab/reviews",
+      "src": "assets/kitchen-concrete.webp"
+    },
+    {
+      "name": "Пользователь N.",
+      "task": "Сборка и консультация · 17 мая 2025",
+      "quote": "Качественная сборка и консультация продавцов. Спасибо огромное! Средняя ценовая категория и приятные скидки.",
+      "source": "Яндекс Карты",
+      "link": "https://yandex.ru/maps/org/interyer_yug/45145387676/reviews/",
+      "src": "assets/kitchen-sage.webp"
+    }
+  ],
+  "services": [
+    {
+      "id": "measure-sketch",
+      "title": "Замер помещения и эскиз будущего проекта",
+      "section": "Кухни на заказ",
+      "category": "Подбор и проектирование",
+      "price": 0,
+      "description": "Выезд на объект в Краснодаре, снятие точных размеров, подбор фасадов и фурнитуры под бюджет.",
+      "duration": "Бесплатно",
+      "discountPercent": null
+    },
+    {
+      "id": "kitchen-straight",
+      "title": "Прямая кухня по вашим размерам (от 2,4 м)",
+      "section": "Кухни на заказ",
+      "category": "Серийный и инд. раскрой",
+      "price": 68000,
+      "description": "Корпус ЛДСП Egger, влагостойкая столешница, аккуратная подгонка под коммуникации и технику.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "kitchen-corner",
+      "title": "Угловая кухня с доводчиками (МДФ / софт-тач)",
+      "section": "Кухни на заказ",
+      "category": "Инд. проект",
+      "price": 115000,
+      "description": "Фурнитура с плавным закрыванием, пенал под духовой шкаф, фартук и вырез под мойку и варочную панель.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "kitchen-enamel",
+      "title": "Кухня под потолок в эмали или шпоне с островом",
+      "section": "Кухни на заказ",
+      "category": "Премиум проект",
+      "price": 165000,
+      "description": "Антресольные шкафы под самый потолок, интегрированные ручки, встроенная подсветка рабочей зоны.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "hallway-custom",
+      "title": "Прихожая по размерам коридора (доставка и сборка)",
+      "section": "Шкафы и прихожие",
+      "category": "Коридор и входная зона",
+      "price": 34000,
+      "description": "Тумба под обувь, вешалка с мягкой панелью, зеркало и шкаф для верхней одежды под вашу нишу.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "wardrobe-builtin",
+      "title": "Встроенный шкаф-купе или распашной шкаф в нишу",
+      "section": "Шкафы и прихожие",
+      "category": "Хранение и гардероб",
+      "price": 54000,
+      "description": "Продуманное внутреннее наполнение со штангами, выдвижными ящиками и полками до потолка.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "living-tv",
+      "title": "Гостиная / ТВ-зона с системой хранения",
+      "section": "Шкафы и прихожие",
+      "category": "Гостиная",
+      "price": 48000,
+      "description": "Навесная или напольная тумба под ТВ, витрины и закрытые шкафы без видимого крепежа.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "desk-custom",
+      "title": "Письменный стол и рабочая зона под заказ",
+      "section": "Столы, детские и мягкая мебель",
+      "category": "Кабинет и учёба",
+      "price": 19500,
+      "description": "Удобная глубина столешницы, кабель-каналы, тумбы с ящиками — быстрая сборка точно по стене.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "kids-complex",
+      "title": "Детская комната (стол + стеллаж + кровать)",
+      "section": "Столы, детские и мягкая мебель",
+      "category": "Детская",
+      "price": 79000,
+      "description": "Безопасные кромки, прочная фурнитура, единый стиль рабочей зоны, хранения и спального места.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "sofa-custom",
+      "title": "Мягкая мебель / диван по вашим размерам и ткани",
+      "section": "Столы, детские и мягкая мебель",
+      "category": "Мягкая мебель",
+      "price": 46000,
+      "description": "Выбор обивки (велюр, рогожка, антикоготь), накладка на подлокотник и механизм трансформации.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "room-renovation",
+      "title": "Ремонт комнаты или кухни под ключ перед установкой мебели",
+      "section": "Ремонт и потолки под ключ",
+      "category": "Отделка помещений",
+      "price": 85000,
+      "description": "Выравнивание стен, разводка розеток точно под кухонный гарнитур, чистовая отделка в одни руки.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "stretch-ceiling",
+      "title": "Натяжной потолок с освещением в комплекте с ремонтом",
+      "section": "Ремонт и потолки под ключ",
+      "category": "Потолки и свет",
+      "price": 16000,
+      "description": "Монтаж матового или сатинового полотна, закладные под встроенные шкафы-купе и светильники.",
+      "duration": "от",
+      "discountPercent": null
+    }
+  ]
+};
+
+function phoneDigits(value) {
+  const digits = value.replace(/\D/g, '');
+  const hasPrefix = /^\s*\+7/.test(value) || (digits.length !== 10 && /^[78]/.test(digits));
+  return (hasPrefix ? digits.slice(1) : digits).slice(0, 10);
+}
+
+function bindPhone(input) {
+  const format = () => {
+    const digits = phoneDigits(input.value);
+    const parts = [digits.slice(0, 3), digits.slice(3, 6), digits.slice(6, 8), digits.slice(8, 10)];
+    input.value = '+7' + (digits ? ' ' + parts.filter(Boolean).join(' ') : '');
+    input.setCustomValidity(digits.length === 10 ? '' : 'Введите 10 цифр номера после +7.');
+  };
+  input.addEventListener('focus', () => { if (!input.value) format(); });
+  input.addEventListener('beforeinput', event => {
+    if (input.value === '+7' && input.selectionStart === input.value.length && /^[+78]$/.test(event.data ?? '')) {
+      event.preventDefault();
+    }
+  });
+  input.addEventListener('paste', event => {
+    if (!event.clipboardData) return;
+    const value = event.clipboardData.getData('text');
+    if (input.value === '+7' || input.selectionStart === 0 && input.selectionEnd === input.value.length) {
+      event.preventDefault();
+      input.value = value;
+      format();
+    }
+  });
+  input.addEventListener('input', () => {
+    if (input.value) format();
+    else input.setCustomValidity('');
+  });
+  input.addEventListener('blur', () => {
+    if (!phoneDigits(input.value)) {
+      input.value = '';
+      input.setCustomValidity('');
+    }
+  });
+  if (input.value) format();
+  return format;
+}
+
+
+const key = 'interier_yug_demo_cfg_v1';
+
+function demoProfile() {
+  try {
+    const stored = localStorage.getItem(key);
+    if (stored) return JSON.parse(stored);
+  } catch {
+    // Use defaults when the browser blocks access to local storage.
+  }
+  return structuredClone(DEFAULT_CONFIG);
+}
+
+function saveDemoProfile(config) {
+  try {
+    localStorage.setItem(key, JSON.stringify(config));
+  } catch {
+    throw new Error('Браузер не смог сохранить настройки. Уменьшите размер фотографий или разрешите локальное хранилище.');
+  }
+}
+
+
+const text = (value, max = 160, optional = false) => {
+  if (typeof value !== 'string' || value.length > max || (!optional && !value.trim())) throw new Error('Проверьте заполнение полей.');
+  return value.trim();
+};
+const number = (value, max) => {
+  if (!Number.isInteger(value) || value < 0 || value > max) throw new Error('Проверьте цену или скидку.');
+  return value;
+};
+const list = (value, max, convert, min = 0) => {
+  if (!Array.isArray(value) || value.length > max || value.length < min) throw new Error('Проверьте количество записей.');
+  return value.map(convert);
+};
+const mediaPath = /^\/media\/[a-f0-9-]{36}\.(webp|png|jpg)$/;
+const photo = (value, demo = false) => {
+  if (demo && typeof value === "string" && value.length < 2700000 && /^data:image\/(?:webp|png|jpeg);base64,[a-z0-9+/=]+$/i.test(value)) return value;
+  if (/^assets\/[\w.-]+\.(?:webp|png|jpg|svg)$/.test(value) || value === DEFAULT_CONFIG.hero.image || [...DEFAULT_CONFIG.gallery, ...DEFAULT_CONFIG.reviews].some(photo => photo.src === value) || mediaPath.test(value)) return value;
+  throw new Error('Загрузите фотографию через кабинет.');
+};
+
+function validateConfig(value, { demo = false } = {}) {
+  const result = structuredClone(DEFAULT_CONFIG);
+  for (const key of ['name', 'profession', 'status', 'area', 'schedule']) result[key] = text(value[key]);
+  result.phone = text(value.phone, 32);
+  if (!/^\+?[\d ()-]+$/.test(result.phone) || !/^\d{10,15}$/.test(result.phone.replace(/\D/g, ''))) throw new Error('Проверьте номер для звонков.');
+  result.telegram = text(value.telegram, 40, true);
+  result.whatsapp = text(value.whatsapp, 32, true);
+  result.max = text(value.max || '', 300, true);
+  result.channels = { telegram: value.channels?.telegram === true, whatsapp: value.channels?.whatsapp === true, max: value.channels?.max === true };
+  if (result.channels.telegram && !/^(?:@?[a-zA-Z0-9_]{5,32}|\+\d{10,15})$/.test(result.telegram)) throw new Error('Укажите корректный ник Telegram.');
+  if (result.channels.whatsapp && !/^\d{10,15}$/.test(result.whatsapp.replace(/\D/g, ''))) throw new Error('Укажите номер WhatsApp с кодом страны.');
+  if (result.channels.max && !/^https:\/\/max\.ru\/\S+$/.test(result.max)) throw new Error('Укажите корректную ссылку на чат MAX.');
+  result.demo = value.demo === true;
+  result.about = text(value.about, 1200);
+  result.discountPercent = number(value.discountPercent, 100);
+  result.hero = {
+    title: text(value.hero?.title),
+    accent: text(value.hero?.accent, 160, true),
+    description: text(value.hero?.description, 650),
+    image: photo(value.hero?.image, demo),
+    imageAlt: text(value.hero?.imageAlt, 200, true),
+    imageSmall: value.hero?.image === DEFAULT_CONFIG.hero.image ? DEFAULT_CONFIG.hero.imageSmall : '',
+  };
+  result.gallery = list(value.gallery, 12, (item) => ({ src: photo(item.src, demo), alt: text(item.alt, 200, true) }));
+  result.facts = list(value.facts, 8, (item) => ({ value: text(item.value, 48), text: text(item.text, 300) }));
+  result.reviews = list(value.reviews, 12, (item) => ({ name: text(item.name, 100), task: text(item.task, 150, true), quote: text(item.quote, 1000), src: item.src ? photo(item.src, demo) : "", source: text(item.source || "", 60, true), link: /^https:\/\/(?:yandex\.ru|2gis\.ru|flamp\.ru)\//.test(item.link) ? text(item.link, 500) : "" }));
+  result.services = list(value.services, 120, (item) => {
+    if (!/^[\w-]{1,64}$/.test(item.id)) throw new Error('Некорректный идентификатор услуги.');
+    return {
+      id: item.id,
+      title: text(item.title, 130),
+      description: text(item.description || "", 500, true),
+      section: text(item.section || "Кухни на заказ", 80),
+      category: text(item.category || "", 80, true),
+      duration: text(item.duration, 65, true),
+      price: number(item.price, 100000000),
+      discountPercent: item.discountPercent == null ? null : number(item.discountPercent, 100),
+    };
+  }, 1);
+  if (new Set(result.services.map((item) => item.id)).size !== result.services.length) throw new Error('Услуги должны быть уникальными.');
+  return result;
+}
+
+
+const staticDemo = document.documentElement.hasAttribute('data-static-demo');
+const find = (selector) => document.querySelector(selector);
+const notice = find('#message');
+const form = find('#site-form');
+const login = find('#login');
+const save = find('#save');
+bindPhone(login.elements.phone);
+
+let state;
+let draft;
+let activating = false;
+let busy = false;
+let dirty = false;
+
+function el(tag, text, parent) {
+  const node = document.createElement(tag);
+  if (text) node.textContent = text;
+  parent?.append(node);
+  return node;
+}
+
+async function api(path, method = 'GET', data) {
+  if (staticDemo) {
+    if (path === 'settings' && method === 'GET') return { config: demoProfile() };
+    if (path === 'settings' && method === 'PUT') {
+      const config = validateConfig(data.config, { demo: true });
+      saveDemoProfile(config);
+      return { config };
+    }
+    if (path === 'photos' && method === 'POST') {
+      const src = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error('Не удалось прочитать фото.'));
+        reader.readAsDataURL(data);
+      });
+      return { src };
+    }
+  }
+  const options = { method };
+  if (data instanceof Blob) options.body = data;
+  else if (data !== undefined) {
+    options.headers = { 'Content-Type': 'application/json' };
+    options.body = JSON.stringify(data);
+  }
+  const response = await fetch('/api/' + path, options);
+  const result = await response.json();
+  if (!response.ok) throw Object.assign(new Error(result.error), { status: response.status });
+  return result;
+}
+
+function setDirty(value = true) {
+  dirty = value;
+  save.disabled = !dirty || busy;
+  find('#save-state').textContent = dirty ? 'Есть несохранённые изменения' : 'Нет несохранённых изменений';
+}
+
+function report(error) {
+  notice.textContent = error.message;
+  const saveState = find('#save-state');
+  if (saveState) saveState.textContent = 'Ошибка: ' + error.message;
+  notice.scrollIntoView({ block: 'nearest' });
+}
+
+async function operation(action) {
+  if (busy) return;
+  busy = true;
+  form.inert = true;
+  save.disabled = true;
+  notice.textContent = '';
+  try { await action(); } catch (error) { report(error); }
+  finally { busy = false; form.inert = false; save.disabled = !dirty; }
+}
+
+function switchAuth(value) {
+  activating = value;
+  find('#auth-title').textContent = value ? 'Активация кабинета' : 'Вход';
+  find('#auth-action').textContent = value ? 'Активировать и войти' : 'Войти';
+  find('#auth-toggle').textContent = value ? 'Уже есть пароль' : 'Активировать кабинет';
+  find('#auth-help').hidden = !value;
+  find('#invite-field').hidden = !value;
+  login.elements.invite.disabled = !value;
+  login.elements.invite.required = value;
+  login.elements.password.autocomplete = value ? 'new-password' : 'current-password';
+}
+
+function field(parent, object, key, title, type = 'text') {
+  const label = el('label', title, parent);
+  const input = el(type === 'textarea' ? 'textarea' : 'input', '', label);
+  if (type !== 'textarea') input.type = type;
+  if (type === 'number') { input.min = '0'; input.step = '1'; }
+  if (type === 'checkbox') input.checked = object[key];
+  else input.value = object[key] ?? '';
+  const eventName = type === 'checkbox' ? 'change' : 'input';
+  input.addEventListener(eventName, () => {
+    object[key] = type === 'checkbox' ? input.checked
+      : type === 'number' ? (input.value === '' ? null : (Number.isNaN(input.valueAsNumber) ? 0 : input.valueAsNumber)) : input.value;
+    setDirty();
+  });
+  return input;
+}
+
+function section(id, title) {
+  const node = el('section', '', find('#fields'));
+  node.className = 'admin-card';
+  node.id = id;
+  el('h2', title, node);
+  return node;
+}
+
+function fields(parent, object, schema) {
+  const group = el('div', '', parent);
+  group.className = 'form-fields';
+  for (const [key, label, type] of schema) field(group, object, key, label, type);
+}
+
+function button(parent, label, callback) {
+  const node = el('button', label, parent);
+  node.type = 'button';
+  node.addEventListener('click', callback);
+  return node;
+}
+
+function collection(parent, title, records, schema, create) {
+  el('h3', title, parent);
+  const rows = el('div', '', parent);
+  function renderRows() {
+    rows.replaceChildren();
+    records.forEach((record, index) => {
+      const row = el('div', '', rows);
+      row.className = 'editor-row';
+      if (record.src) {
+        const preview = el('img', '', row);
+        preview.src = new URL(record.src, new URL('../', location.href)).href;
+        preview.alt = record.alt || record.name || 'Фото';
+      }
+      fields(row, record, schema);
+      button(row, 'Удалить запись ' + (index + 1), () => {
+        records.splice(index, 1);
+        renderRows();
+        setDirty();
+      });
+    });
+  }
+  renderRows();
+  if (create) button(parent, 'Добавить', () => {
+    records.push(create());
+    renderRows();
+    setDirty();
+    rows.lastElementChild?.querySelector('input')?.focus();
+  });
+}
+
+async function compress(file) {
+  if (!['image/jpeg', 'image/webp', 'image/png'].includes(file.type)) throw new Error('Выберите JPEG, PNG или WebP.');
+  if (file.size > 20 * 1024 * 1024) throw new Error('Исходное фото должно быть меньше 20 МБ.');
+  const image = await createImageBitmap(file);
+  const scale = Math.min(1, 1600 / Math.max(image.width, image.height));
+  const canvas = document.createElement('canvas');
+  canvas.width = Math.max(1, Math.round(image.width * scale));
+  canvas.height = Math.max(1, Math.round(image.height * scale));
+  canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
+  image.close();
+  const result = await new Promise((resolve) => canvas.toBlob(resolve, 'image/webp', .82));
+  if (!result) throw new Error('Фото не удалось обработать.');
+  return result;
+}
+
+function uploadControl(parent, label, callback) {
+  const input = el('input', '', el('label', label, parent));
+  input.type = 'file';
+  input.accept = 'image/jpeg,image/webp,image/png';
+  input.addEventListener('change', () => {
+    const file = input.files[0];
+    input.value = '';
+    if (file) operation(async () => {
+      const image = await compress(file);
+      const { src } = await api('photos', 'POST', image);
+      callback(src);
+      setDirty();
+    });
+  });
+}
+
+function render() {
+  find('#fields').replaceChildren();
+  const details = section('details', 'О компании');
+  fields(details, draft, [['name','Название'], ['profession','Специализация'], ['status','Текст кнопки записи'], ['area','Адрес и район выезда'], ['schedule','График']]);
+  fields(details, draft.hero, [['title','Заголовок'], ['accent','Цветная строка заголовка'], ['description','Текст первого экрана','textarea']]);
+
+  const media = section('media', 'Фотографии');
+  const preview = el('img', '', media);
+  preview.className = 'hero-preview';
+  preview.src = new URL(draft.hero.image, new URL('../', location.href)).href;
+  preview.alt = draft.hero.imageAlt;
+  field(media, draft.hero, 'imageAlt', 'Описание главного фото');
+  uploadControl(media, 'Заменить главное фото', (src) => {
+    draft.hero.image = src;
+    draft.hero.imageSmall = '';
+    preview.src = src;
+  });
+  collection(media, 'Галерея работ', draft.gallery, [['alt','Описание фото']]);
+  uploadControl(media, 'Добавить фото в галерею', (src) => {
+    draft.gallery.push({ src, alt: '' });
+    render();
+    location.hash = '#media';
+  });
+
+  const prices = section('prices', 'Услуги и скидки');
+  field(prices, draft, 'discountPercent', 'Общая скидка, %', 'number');
+  el('p', 'Пустая скидка у услуги означает общую. Чтобы исключить услугу из акции, укажите 0.', prices);
+  collection(prices, 'Прайс-лист', draft.services,
+    [['title','Название'], ['section','Раздел'], ['category','Площадь или категория'], ['duration','Префикс цены (от)'], ['price','Цена, ₽','number'], ['discountPercent','Скидка услуги, %','number'], ['description','Описание','textarea']],
+    () => ({id: crypto.randomUUID(), title: '', section: 'Кухни на заказ', category: '', duration: '', price: 0, discountPercent: null, description: ''}));
+
+  const contacts = section('contacts', 'Связь с клиентами');
+  fields(contacts, draft, [['phone','Телефон для звонков','tel'], ['telegram','Ник или номер Telegram'], ['whatsapp','Номер WhatsApp','tel'], ['max','Ссылка на чат MAX','url']]);
+  fields(contacts, draft.channels, [['telegram','Показывать Telegram','checkbox'], ['whatsapp','Показывать WhatsApp','checkbox'], ['max','Показывать MAX','checkbox']]);
+  el('p', 'Если все мессенджеры отключены, сайт предложит позвонить.', contacts);
+
+  const reviews = section('reputation', 'Отзывы');
+  collection(reviews, 'Отзывы клиентов', draft.reviews, [['name','Имя клиента'], ['task','Что сделали'], ['quote','Текст отзыва','textarea'], ['source','Площадка'], ['link','Ссылка на отзыв'], ['src','Путь к фотографии отзыва']], () => ({name:'', task:'', quote:''}));
+}
+
+async function openEditor() {
+  state = await api('settings');
+  draft = structuredClone(state.config);
+  render();
+  setDirty(false);
+  find('#login-panel').hidden = true;
+  find('#editor').hidden = false;
+  find('#logout').hidden = staticDemo;
+}
+
+find('#auth-toggle').onclick = () => switchAuth(!activating);
+login.onsubmit = (event) => {
+  event.preventDefault();
+  operation(async () => {
+    await api(activating ? 'activate' : 'login', 'POST', Object.fromEntries(new FormData(login)));
+    login.reset();
+    await openEditor();
+  });
+};
+form.onsubmit = (event) => {
+  event.preventDefault();
+  operation(async () => {
+    state = await api('settings', 'PUT', { revision: state.revision, config: draft });
+    setDirty(false);
+    const msg = staticDemo ? 'Изменения сохранены в этом браузере.' : 'Изменения опубликованы.';
+    notice.textContent = msg;
+    find('#save-state').textContent = msg;
+  });
+};
+find('#logout').onclick = () => operation(async () => {
+  if (dirty && !confirm('Выйти без сохранения изменений?')) return;
+  await api('logout', 'POST');
+  sessionStorage.removeItem('master-login');
+  location.replace('/login/');
+});
+addEventListener('beforeunload', (event) => { if (dirty) event.preventDefault(); });
+
+openEditor().catch((error) => {
+  if (error.status !== 401) report(error);
+  const identification = JSON.parse(sessionStorage.getItem('master-login') || 'null');
+  if (identification) {
+    login.elements.phone.value = '+' + identification.phone;
+    login.elements.phone.dispatchEvent(new Event('input'));
+    switchAuth(identification.activate);
+  }
+  find('#login-panel').hidden = false;
+});
+
+});
+</script>
+</head>
+<body class="admin">
+  <header class="admin-header"><div class="wrap"><a href="../index.html">На сайт</a><button id="logout" type="button" hidden>Выйти</button></div></header>
+  <main class="wrap">
+    <h1>Демо кабинета</h1><p>Правки сохраняются в этом браузере и видны только на этом устройстве.</p>
+    <p id="message" role="status"></p>
+    <section id="login-panel" hidden>
+      <form id="login">
+        <h2 id="auth-title">Вход</h2>
+        <p id="auth-help" hidden>Для регистрации нужен одноразовый ключ, который выдаёт администратор сайта.</p>
+        <label>Номер мастера<input name="phone" type="tel" autocomplete="username" required placeholder="+7 999 000-00-00"></label>
+        <label id="invite-field" hidden>Ключ активации<input name="invite" type="text" autocomplete="off" disabled></label>
+        <label>Пароль<input name="password" type="password" autocomplete="current-password" minlength="7" maxlength="128" required></label>
+        <button class="button button-primary" type="submit" id="auth-action">Войти</button>
+        <button class="text-button" type="button" id="auth-toggle">Активировать кабинет</button>
+      </form>
+    </section>
+    <section id="editor" hidden>
+      <nav class="admin-nav" aria-label="Настройки сайта">
+        <a href="#details">О компании</a><a href="#media">Фото</a><a href="#prices">Цены</a><a href="#contacts">Связь</a><a href="#reputation">Отзывы</a>
+      </nav>
+      <form id="site-form">
+        <div id="fields"></div>
+        <div class="save-bar">
+          <span id="save-state" aria-live="polite">Нет несохранённых изменений</span>
+          <button id="save" class="button button-primary" type="submit" disabled>Сохранить изменения</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
