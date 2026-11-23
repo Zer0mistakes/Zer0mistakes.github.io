@@ -24,13 +24,32 @@ html {
   color: var(--ink);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 body {
   margin: 0;
   line-height: 1.55;
-  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
   padding-bottom: 0;
+}
+
+main, section, .site-header, .mobile-dock {
+  max-width: 100%;
+}
+
+.hero-body,
+.hero-atelier,
+.planner-controls,
+.planner-result,
+.catalog-col,
+.summary,
+.contact-main,
+.contact-cards,
+.filter-group {
+  min-width: 0;
 }
 
 img { display: block; max-width: 100%; height: auto; }
@@ -1213,7 +1232,7 @@ dialog::backdrop { background: rgba(22, 18, 15, 0.72); backdrop-filter: blur(4px
   .planner-shell,
   .directory,
   .contact-inner {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .facts-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1243,6 +1262,7 @@ dialog::backdrop { background: rgba(22, 18, 15, 0.72); backdrop-filter: blur(4px
   .lead { font-size: 15px; }
   .atelier-stage { padding-right: 10%; padding-bottom: 8%; }
   .atelier-main img { max-height: 360px; }
+  .atelier-main figcaption { top: 12px; bottom: auto; right: 12px; width: fit-content; }
   .atelier-inset { width: 52%; }
 
   .facts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1252,11 +1272,13 @@ dialog::backdrop { background: rgba(22, 18, 15, 0.72); backdrop-filter: blur(4px
 
   .section { padding: 44px 0; }
   .planner-controls, .planner-result, .summary { padding: 20px; }
-  .addon-grid { grid-template-columns: 1fr; }
+  .addon-grid { grid-template-columns: minmax(0, 1fr); }
 
   .pill-bar {
     flex-wrap: nowrap;
     overflow-x: auto;
+    max-width: 100%;
+    width: 100%;
     padding-bottom: 4px;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
@@ -1264,7 +1286,7 @@ dialog::backdrop { background: rgba(22, 18, 15, 0.72); backdrop-filter: blur(4px
   .pill { scroll-snap-align: start; flex: 0 0 auto; }
 
   .service-card {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 12px;
     padding: 16px;
   }
@@ -1281,6 +1303,8 @@ dialog::backdrop { background: rgba(22, 18, 15, 0.72); backdrop-filter: blur(4px
   .gallery,
   .review-grid {
     display: flex;
+    max-width: 100%;
+    width: 100%;
     overflow-x: auto;
     gap: 14px;
     scroll-snap-type: x mandatory;
