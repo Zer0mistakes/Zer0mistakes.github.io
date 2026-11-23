@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="ru" data-static-demo>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Элегант — Кабинет управления</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="stylesheet" href="./base.css">
+  <link rel="stylesheet" href="./admin.css">
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+const DEFAULT_CONFIG = {
+  "name": "Элегант",
+  "profession": "Казань · Тихие стены и натяжные потолки",
+  "status": "Вызвать замерщика",
+  "area": "Казань · проспект Ямашева, 83 (60-й квартал, Ново-Савиновский район)",
+  "schedule": "Ежедневно 08:00 — 21:00",
+  "phone": "+7 (937) 937-13-22",
+  "whatsapp": "",
+  "telegram": "+79379371322",
+  "max": "",
+  "channels": {
+    "whatsapp": false,
+    "telegram": true,
+    "max": false
+  },
+  "demo": false,
+  "about": "Компания по производству и установке «Тихих стен» и натяжных потолков в Казани. Выполняем монтаж матовых полотен, теневых примыканий, парящих контуров, световых линий, трекового освещения и скрытых алюминиевых карнизов с последующей уборкой.",
+  "discountPercent": 0,
+  "hero": {
+    "title": "Тихие стены и натяжные потолки",
+    "accent": "в Казани под ключ",
+    "description": "Производим и монтируем акустические системы «Тихие стены», матовые полотна, теневые примыкания, световые линии и трековое освещение. Консультируем по свету и материалам, оставляя квартиру чистой после завершения работ.",
+    "image": "assets/silent-tv-led.webp",
+    "imageSmall": "",
+    "imageAlt": "Тихие стены с вертикальными разделителями и тёплой контурной подсветкой за ТВ — Элегант, Казань"
+  },
+  "gallery": [
+    {
+      "src": "assets/silent-tv-led.webp",
+      "alt": "Тихая стена в гостиной с вертикальными профилями и контурной подсветкой"
+    },
+    {
+      "src": "assets/silent-brass.webp",
+      "alt": "Акустическая отделка стен с латунным разделителем и стеклянным бра"
+    },
+    {
+      "src": "assets/silent-grey-ring.webp",
+      "alt": "Серые «Тихие стены», теневой потолок, споты и кольцевая LED-люстра"
+    },
+    {
+      "src": "assets/silent-living-tv.webp",
+      "alt": "Готовая комната с «Тихими стенами», подвесной тумбой и мягким светом"
+    },
+    {
+      "src": "assets/ceiling-pendant.webp",
+      "alt": "Столовая зона с матовым натяжным потолком и чёрными подвесными светильниками"
+    },
+    {
+      "src": "assets/ceiling-linear-niche.webp",
+      "alt": "Натяжной потолок с подвесной световой линией и подсвеченной нишей под шторы"
+    },
+    {
+      "src": "assets/ceiling-rings.webp",
+      "alt": "Световой сценарий с тремя кольцами LED, точечными спотами и контуром"
+    },
+    {
+      "src": "assets/ceiling-track.webp",
+      "alt": "Линейный трековый свет и скрытый карниз с подсветкой штор"
+    },
+    {
+      "src": "assets/ceiling-olive-shadow.webp",
+      "alt": "Оливковая стена и идеально ровный натяжной потолок с теневым профилем"
+    }
+  ],
+  "facts": [
+    {
+      "value": "5,0 ★ в 2ГИС",
+      "text": "19 оценок и 18 отзывов — все клиенты поставили высший балл"
+    },
+    {
+      "value": "Тихие стены",
+      "text": "Собственное производство и установка бесшовной акустической отделки"
+    },
+    {
+      "value": "Чистый монтаж",
+      "text": "Работаем аккуратно и после завершения убираем за собой пылесосом"
+    },
+    {
+      "value": "08:00 — 21:00",
+      "text": "Выезд мастера на замер и консультация ежедневно без выходных"
+    }
+  ],
+  "reviews": [
+    {
+      "name": "Диана Ахмадуллина",
+      "task": "Натяжной потолок в 1-к квартире · 2 июня 2026",
+      "quote": "Отличная работа! Сперва подробно всё проконсультировали, дали грамотные рекомендации по материалу и свету — для однокомнатной квартиры это было очень ценно. Сам потолок натянули безупречно: ровно, аккуратно, без щелей и грязи. Рекомендую!",
+      "source": "2ГИС",
+      "link": "https://2gis.ru/kazan/firm/70000001110980360/tab/reviews",
+      "src": "assets/ceiling-pendant.webp"
+    },
+    {
+      "name": "Чулпан Галимуллина",
+      "task": "Натяжной потолок и освещение · 30 апреля 2026",
+      "quote": "Хочу выразить огромную благодарность вашей команде за качественную работу! Натяжной потолок превзошел все ожидания — всё сделано очень аккуратно, быстро и профессионально. Мастера приехали вовремя, помогли с выбором освещения и оставили после себя полный порядок. Комната просто преобразилась!",
+      "source": "2ГИС",
+      "link": "https://2gis.ru/kazan/firm/70000001110980360/tab/reviews",
+      "src": "assets/ceiling-rings.webp"
+    },
+    {
+      "name": "Евгения Старостина",
+      "task": "Потолки в ванну и туалет · 15 апреля 2026",
+      "quote": "Заказывала потолки в ванну и туалет . Сделали все шикарно , аккуратно , быстро , со вкусом . Ребята очень хорошие, мастера своего дела . За собой все убрали , пропылесосили . Рекомендую заказывать у них",
+      "source": "2ГИС",
+      "link": "https://2gis.ru/kazan/firm/70000001110980360/tab/reviews",
+      "src": "assets/ceiling-olive-shadow.webp"
+    },
+    {
+      "name": "Алиса Никульцева",
+      "task": "Потолки в квартиру и окна · 13 марта 2026",
+      "quote": "Выражаю огромную благодарность профессионалу своего дела Нурфису, заказывали потолки в квартиру сыну! Прекрасно все, начиная с внимательной консультации, подбора экологичного материала и установки! Отличная команда, очень довольна и ценой и качеством!",
+      "source": "2ГИС",
+      "link": "https://2gis.ru/kazan/firm/70000001110980360/tab/reviews",
+      "src": "assets/silent-living-tv.webp"
+    },
+    {
+      "name": "Замира Хафизова",
+      "task": "Потолок и уборка после работ · 12 февраля 2026",
+      "quote": "Хотела бы выразить свое восхищение и благодарность Нурфису и его ребятам . Высокий уровень профессионализма, оперативность, доброжелательный и уважительный подход к клиенту. Потолок получился оч красивый : все углы ровные , полотно натянуто безупречно. После завершения всех работ произвели качественный клининг!",
+      "source": "2ГИС",
+      "link": "https://2gis.ru/kazan/firm/70000001110980360/tab/reviews",
+      "src": "assets/ceiling-linear-niche.webp"
+    }
+  ],
+  "services": [
+    {
+      "id": "measure-consult",
+      "title": "Выезд на замер, подбор полотна, профиля и схемы света",
+      "section": "Тихие стены и сервис",
+      "category": "Замер и подбор",
+      "price": 0,
+      "description": "Привезём образцы «Тихих стен» и матовых полотен, поможем продумать сценарий освещения под планировку.",
+      "duration": "Бесплатно",
+      "discountPercent": null
+    },
+    {
+      "id": "silent-walls",
+      "title": "Тихие стены (бесшовная акустическая отделка, 1 м²)",
+      "section": "Тихие стены и сервис",
+      "category": "Стеновые системы",
+      "price": 3900,
+      "description": "Собственное производство и установка мягкой шумопоглощающей системы с декоративными профилями и подсветкой.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "ceiling-matte",
+      "title": "Матовые натяжные потолки с монтажом (1 м²)",
+      "section": "Натяжные потолки и свет",
+      "category": "Базовое полотно",
+      "price": 490,
+      "description": "Экологичные сертифицированные полотна с идеальным натяжением без запаха и складок, уборка пылесосом после монтажа.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "ceiling-shadow",
+      "title": "Теневые примыкания (1 п.м.)",
+      "section": "Натяжные потолки и свет",
+      "category": "Профили и ниши",
+      "price": 1200,
+      "description": "Чёткий архитектурный теневой зазор вдоль стен без пластиковой маскировочной ленты.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "ceiling-floating",
+      "title": "Парящие потолки с контурной подсветкой (1 п.м.)",
+      "section": "Натяжные потолки и свет",
+      "category": "Профили и ниши",
+      "price": 1800,
+      "description": "Светодиодный контур вдоль стены, визуально приподнимающий потолок и создающий мягкий вечерний свет.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "ceiling-cornice",
+      "title": "Скрытые алюминиевые карнизы (1 п.м.)",
+      "section": "Натяжные потолки и свет",
+      "category": "Профили и ниши",
+      "price": 2500,
+      "description": "Встроенная ниша под шторы из цельного алюминиевого профиля с возможностью добавления LED-ленты.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "ceiling-lines",
+      "title": "Световые линии (1 п.м.)",
+      "section": "Натяжные потолки и свет",
+      "category": "Освещение",
+      "price": 3000,
+      "description": "Интегрированные линейные светильники заподлицо с полотном для основного или зонирующего света.",
+      "duration": "от",
+      "discountPercent": null
+    },
+    {
+      "id": "ceiling-track",
+      "title": "Трековое освещение (комплект с установкой)",
+      "section": "Натяжные потолки и свет",
+      "category": "Освещение",
+      "price": 7500,
+      "description": "Магнитные и накладные трековые шинопроводы с регулируемыми спотами для кухни, гостиной или спальни.",
+      "duration": "от",
+      "discountPercent": null
+    }
+  ]
+};
+
+function phoneDigits(value) {
+  const digits = value.replace(/\D/g, '');
+  const hasPrefix = /^\s*\+7/.test(value) || (digits.length !== 10 && /^[78]/.test(digits));
+  return (hasPrefix ? digits.slice(1) : digits).slice(0, 10);
+}
+
+function bindPhone(input) {
+  const format = () => {
+    const digits = phoneDigits(input.value);
+    const parts = [digits.slice(0, 3), digits.slice(3, 6), digits.slice(6, 8), digits.slice(8, 10)];
+    input.value = '+7' + (digits ? ' ' + parts.filter(Boolean).join(' ') : '');
+    input.setCustomValidity(digits.length === 10 ? '' : 'Введите 10 цифр номера после +7.');
+  };
+  input.addEventListener('focus', () => { if (!input.value) format(); });
+  input.addEventListener('beforeinput', event => {
+    if (input.value === '+7' && input.selectionStart === input.value.length && /^[+78]$/.test(event.data ?? '')) {
+      event.preventDefault();
+    }
+  });
+  input.addEventListener('paste', event => {
+    if (!event.clipboardData) return;
+    const value = event.clipboardData.getData('text');
+    if (input.value === '+7' || input.selectionStart === 0 && input.selectionEnd === input.value.length) {
+      event.preventDefault();
+      input.value = value;
+      format();
+    }
+  });
+  input.addEventListener('input', () => {
+    if (input.value) format();
+    else input.setCustomValidity('');
+  });
+  input.addEventListener('blur', () => {
+    if (!phoneDigits(input.value)) {
+      input.value = '';
+      input.setCustomValidity('');
+    }
+  });
+  if (input.value) format();
+  return format;
+}
+
+
+const key = 'elegant_kazan_demo_cfg_v1';
+
+function demoProfile() {
+  try {
+    const stored = localStorage.getItem(key);
+    if (stored) return JSON.parse(stored);
+  } catch {
+    // Use defaults when the browser blocks access to local storage.
+  }
+  return structuredClone(DEFAULT_CONFIG);
+}
+
+function saveDemoProfile(config) {
+  try {
+    localStorage.setItem(key, JSON.stringify(config));
+  } catch {
+    throw new Error('Браузер не смог сохранить настройки. Уменьшите размер фотографий или разрешите локальное хранилище.');
+  }
+}
+
+
+const text = (value, max = 160, optional = false) => {
+  if (typeof value !== 'string' || value.length > max || (!optional && !value.trim())) throw new Error('Проверьте заполнение полей.');
+  return value.trim();
+};
+const number = (value, max) => {
+  if (!Number.isInteger(value) || value < 0 || value > max) throw new Error('Проверьте цену или скидку.');
+  return value;
+};
+const list = (value, max, convert, min = 0) => {
+  if (!Array.isArray(value) || value.length > max || value.length < min) throw new Error('Проверьте количество записей.');
+  return value.map(convert);
+};
+const mediaPath = /^\/media\/[a-f0-9-]{36}\.(webp|png|jpg)$/;
+const photo = (value, demo = false) => {
+  if (demo && typeof value === "string" && value.length < 2700000 && /^data:image\/(?:webp|png|jpeg);base64,[a-z0-9+/=]+$/i.test(value)) return value;
+  if (/^assets\/[\w.-]+\.(?:webp|png|jpg|svg)$/.test(value) || value === DEFAULT_CONFIG.hero.image || [...DEFAULT_CONFIG.gallery, ...DEFAULT_CONFIG.reviews].some(photo => photo.src === value) || mediaPath.test(value)) return value;
+  throw new Error('Загрузите фотографию через кабинет.');
+};
+
+function validateConfig(value, { demo = false } = {}) {
+  const result = structuredClone(DEFAULT_CONFIG);
+  for (const key of ['name', 'profession', 'status', 'area', 'schedule']) result[key] = text(value[key]);
+  result.phone = text(value.phone, 32);
+  if (!/^\+?[\d ()-]+$/.test(result.phone) || !/^\d{10,15}$/.test(result.phone.replace(/\D/g, ''))) throw new Error('Проверьте номер для звонков.');
+  result.telegram = text(value.telegram, 40, true);
+  result.whatsapp = text(value.whatsapp, 32, true);
+  result.max = text(value.max || '', 300, true);
+  result.channels = { telegram: value.channels?.telegram === true, whatsapp: value.channels?.whatsapp === true, max: value.channels?.max === true };
+  if (result.channels.telegram && !/^(?:@?[a-zA-Z0-9_]{5,32}|\+\d{10,15})$/.test(result.telegram)) throw new Error('Укажите корректный ник Telegram.');
+  if (result.channels.whatsapp && !/^\d{10,15}$/.test(result.whatsapp.replace(/\D/g, ''))) throw new Error('Укажите номер WhatsApp с кодом страны.');
+  if (result.channels.max && !/^https:\/\/max\.ru\/\S+$/.test(result.max)) throw new Error('Укажите корректную ссылку на чат MAX.');
+  result.demo = value.demo === true;
+  result.about = text(value.about, 1200);
+  result.discountPercent = number(value.discountPercent, 100);
+  result.hero = {
+    title: text(value.hero?.title),
+    accent: text(value.hero?.accent, 160, true),
+    description: text(value.hero?.description, 650),
+    image: photo(value.hero?.image, demo),
+    imageAlt: text(value.hero?.imageAlt, 200, true),
+    imageSmall: value.hero?.image === DEFAULT_CONFIG.hero.image ? DEFAULT_CONFIG.hero.imageSmall : '',
+  };
+  result.gallery = list(value.gallery, 12, (item) => ({ src: photo(item.src, demo), alt: text(item.alt, 200, true) }));
+  result.facts = list(value.facts, 8, (item) => ({ value: text(item.value, 48), text: text(item.text, 300) }));
+  result.reviews = list(value.reviews, 12, (item) => ({ name: text(item.name, 100), task: text(item.task, 150, true), quote: text(item.quote, 1000), src: item.src ? photo(item.src, demo) : "", source: text(item.source || "", 60, true), link: /^https:\/\/(?:yandex\.ru|2gis\.ru|flamp\.ru)\//.test(item.link) ? text(item.link, 500) : "" }));
+  result.services = list(value.services, 120, (item) => {
+    if (!/^[\w-]{1,64}$/.test(item.id)) throw new Error('Некорректный идентификатор услуги.');
+    return {
+      id: item.id,
+      title: text(item.title, 130),
+      description: text(item.description || "", 500, true),
+      section: text(item.section || "Натяжные потолки и свет", 80),
+      category: text(item.category || "", 80, true),
+      duration: text(item.duration, 65, true),
+      price: number(item.price, 100000000),
+      discountPercent: item.discountPercent == null ? null : number(item.discountPercent, 100),
+    };
+  }, 1);
+  if (new Set(result.services.map((item) => item.id)).size !== result.services.length) throw new Error('Услуги должны быть уникальными.');
+  return result;
+}
+
+
+const staticDemo = document.documentElement.hasAttribute('data-static-demo');
+const find = (selector) => document.querySelector(selector);
+const notice = find('#message');
+const form = find('#site-form');
+const login = find('#login');
+const save = find('#save');
+bindPhone(login.elements.phone);
+
+let state;
+let draft;
+let activating = false;
+let busy = false;
+let dirty = false;
+
+function el(tag, text, parent) {
+  const node = document.createElement(tag);
+  if (text) node.textContent = text;
+  parent?.append(node);
+  return node;
+}
+
+async function api(path, method = 'GET', data) {
+  if (staticDemo) {
+    if (path === 'settings' && method === 'GET') return { config: demoProfile() };
+    if (path === 'settings' && method === 'PUT') {
+      const config = validateConfig(data.config, { demo: true });
+      saveDemoProfile(config);
+      return { config };
+    }
+    if (path === 'photos' && method === 'POST') {
+      const src = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error('Не удалось прочитать фото.'));
+        reader.readAsDataURL(data);
+      });
+      return { src };
+    }
+  }
+  const options = { method };
+  if (data instanceof Blob) options.body = data;
+  else if (data !== undefined) {
+    options.headers = { 'Content-Type': 'application/json' };
+    options.body = JSON.stringify(data);
+  }
+  const response = await fetch('/api/' + path, options);
+  const result = await response.json();
+  if (!response.ok) throw Object.assign(new Error(result.error), { status: response.status });
+  return result;
+}
+
+function setDirty(value = true) {
+  dirty = value;
+  save.disabled = !dirty || busy;
+  find('#save-state').textContent = dirty ? 'Есть несохранённые изменения' : 'Нет несохранённых изменений';
+}
+
+function report(error) {
+  notice.textContent = error.message;
+  const saveState = find('#save-state');
+  if (saveState) saveState.textContent = 'Ошибка: ' + error.message;
+  notice.scrollIntoView({ block: 'nearest' });
+}
+
+async function operation(action) {
+  if (busy) return;
+  busy = true;
+  form.inert = true;
+  save.disabled = true;
+  notice.textContent = '';
+  try { await action(); } catch (error) { report(error); }
+  finally { busy = false; form.inert = false; save.disabled = !dirty; }
+}
+
+function switchAuth(value) {
+  activating = value;
+  find('#auth-title').textContent = value ? 'Активация кабинета' : 'Вход';
+  find('#auth-action').textContent = value ? 'Активировать и войти' : 'Войти';
+  find('#auth-toggle').textContent = value ? 'Уже есть пароль' : 'Активировать кабинет';
+  find('#auth-help').hidden = !value;
+  find('#invite-field').hidden = !value;
+  login.elements.invite.disabled = !value;
+  login.elements.invite.required = value;
+  login.elements.password.autocomplete = value ? 'new-password' : 'current-password';
+}
+
+function field(parent, object, key, title, type = 'text') {
+  const label = el('label', title, parent);
+  const input = el(type === 'textarea' ? 'textarea' : 'input', '', label);
+  if (type !== 'textarea') input.type = type;
+  if (type === 'number') { input.min = '0'; input.step = '1'; }
+  if (type === 'checkbox') input.checked = object[key];
+  else input.value = object[key] ?? '';
+  const eventName = type === 'checkbox' ? 'change' : 'input';
+  input.addEventListener(eventName, () => {
+    object[key] = type === 'checkbox' ? input.checked
+      : type === 'number' ? (input.value === '' ? null : (Number.isNaN(input.valueAsNumber) ? 0 : input.valueAsNumber)) : input.value;
+    setDirty();
+  });
+  return input;
+}
+
+function section(id, title) {
+  const node = el('section', '', find('#fields'));
+  node.className = 'admin-card';
+  node.id = id;
+  el('h2', title, node);
+  return node;
+}
+
+function fields(parent, object, schema) {
+  const group = el('div', '', parent);
+  group.className = 'form-fields';
+  for (const [key, label, type] of schema) field(group, object, key, label, type);
+}
+
+function button(parent, label, callback) {
+  const node = el('button', label, parent);
+  node.type = 'button';
+  node.addEventListener('click', callback);
+  return node;
+}
+
+function collection(parent, title, records, schema, create) {
+  el('h3', title, parent);
+  const rows = el('div', '', parent);
+  function renderRows() {
+    rows.replaceChildren();
+    records.forEach((record, index) => {
+      const row = el('div', '', rows);
+      row.className = 'editor-row';
+      if (record.src) {
+        const preview = el('img', '', row);
+        preview.src = new URL(record.src, new URL('../', location.href)).href;
+        preview.alt = record.alt || record.name || 'Фото';
+      }
+      fields(row, record, schema);
+      button(row, 'Удалить запись ' + (index + 1), () => {
+        records.splice(index, 1);
+        renderRows();
+        setDirty();
+      });
+    });
+  }
+  renderRows();
+  if (create) button(parent, 'Добавить', () => {
+    records.push(create());
+    renderRows();
+    setDirty();
+    rows.lastElementChild?.querySelector('input')?.focus();
+  });
+}
+
+async function compress(file) {
+  if (!['image/jpeg', 'image/webp', 'image/png'].includes(file.type)) throw new Error('Выберите JPEG, PNG или WebP.');
+  if (file.size > 20 * 1024 * 1024) throw new Error('Исходное фото должно быть меньше 20 МБ.');
+  const image = await createImageBitmap(file);
+  const scale = Math.min(1, 1600 / Math.max(image.width, image.height));
+  const canvas = document.createElement('canvas');
+  canvas.width = Math.max(1, Math.round(image.width * scale));
+  canvas.height = Math.max(1, Math.round(image.height * scale));
+  canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
+  image.close();
+  const result = await new Promise((resolve) => canvas.toBlob(resolve, 'image/webp', .82));
+  if (!result) throw new Error('Фото не удалось обработать.');
+  return result;
+}
+
+function uploadControl(parent, label, callback) {
+  const input = el('input', '', el('label', label, parent));
+  input.type = 'file';
+  input.accept = 'image/jpeg,image/webp,image/png';
+  input.addEventListener('change', () => {
+    const file = input.files[0];
+    input.value = '';
+    if (file) operation(async () => {
+      const image = await compress(file);
+      const { src } = await api('photos', 'POST', image);
+      callback(src);
+      setDirty();
+    });
+  });
+}
+
+function render() {
+  find('#fields').replaceChildren();
+  const details = section('details', 'О компании');
+  fields(details, draft, [['name','Название'], ['profession','Специализация'], ['status','Текст кнопки записи'], ['area','Адрес и район выезда'], ['schedule','График']]);
+  fields(details, draft.hero, [['title','Заголовок'], ['accent','Цветная строка заголовка'], ['description','Текст первого экрана','textarea']]);
+
+  const media = section('media', 'Фотографии');
+  const preview = el('img', '', media);
+  preview.className = 'hero-preview';
+  preview.src = new URL(draft.hero.image, new URL('../', location.href)).href;
+  preview.alt = draft.hero.imageAlt;
+  field(media, draft.hero, 'imageAlt', 'Описание главного фото');
+  uploadControl(media, 'Заменить главное фото', (src) => {
+    draft.hero.image = src;
+    draft.hero.imageSmall = '';
+    preview.src = src;
+  });
+  collection(media, 'Галерея работ', draft.gallery, [['alt','Описание фото']]);
+  uploadControl(media, 'Добавить фото в галерею', (src) => {
+    draft.gallery.push({ src, alt: '' });
+    render();
+    location.hash = '#media';
+  });
+
+  const prices = section('prices', 'Услуги и скидки');
+  field(prices, draft, 'discountPercent', 'Общая скидка, %', 'number');
+  el('p', 'Пустая скидка у услуги означает общую. Чтобы исключить услугу из акции, укажите 0.', prices);
+  collection(prices, 'Прайс-лист', draft.services,
+    [['title','Название'], ['section','Раздел'], ['category','Площадь или категория'], ['duration','Префикс цены (от)'], ['price','Цена, ₽','number'], ['discountPercent','Скидка услуги, %','number'], ['description','Описание','textarea']],
+    () => ({id: crypto.randomUUID(), title: '', section: 'Натяжные потолки и свет', category: '', duration: '', price: 0, discountPercent: null, description: ''}));
+
+  const contacts = section('contacts', 'Связь с клиентами');
+  fields(contacts, draft, [['phone','Телефон для звонков','tel'], ['telegram','Ник или номер Telegram'], ['whatsapp','Номер WhatsApp','tel'], ['max','Ссылка на чат MAX','url']]);
+  fields(contacts, draft.channels, [['telegram','Показывать Telegram','checkbox'], ['whatsapp','Показывать WhatsApp','checkbox'], ['max','Показывать MAX','checkbox']]);
+  el('p', 'Если все мессенджеры отключены, сайт предложит позвонить.', contacts);
+
+  const reviews = section('reputation', 'Отзывы');
+  collection(reviews, 'Отзывы клиентов', draft.reviews, [['name','Имя клиента'], ['task','Что сделали'], ['quote','Текст отзыва','textarea'], ['source','Площадка'], ['link','Ссылка на отзыв'], ['src','Путь к фотографии отзыва']], () => ({name:'', task:'', quote:''}));
+}
+
+async function openEditor() {
+  state = await api('settings');
+  draft = structuredClone(state.config);
+  render();
+  setDirty(false);
+  find('#login-panel').hidden = true;
+  find('#editor').hidden = false;
+  find('#logout').hidden = staticDemo;
+}
+
+find('#auth-toggle').onclick = () => switchAuth(!activating);
+login.onsubmit = (event) => {
+  event.preventDefault();
+  operation(async () => {
+    await api(activating ? 'activate' : 'login', 'POST', Object.fromEntries(new FormData(login)));
+    login.reset();
+    await openEditor();
+  });
+};
+form.onsubmit = (event) => {
+  event.preventDefault();
+  operation(async () => {
+    state = await api('settings', 'PUT', { revision: state.revision, config: draft });
+    setDirty(false);
+    const msg = staticDemo ? 'Изменения сохранены в этом браузере.' : 'Изменения опубликованы.';
+    notice.textContent = msg;
+    find('#save-state').textContent = msg;
+  });
+};
+find('#logout').onclick = () => operation(async () => {
+  if (dirty && !confirm('Выйти без сохранения изменений?')) return;
+  await api('logout', 'POST');
+  sessionStorage.removeItem('master-login');
+  location.replace('/login/');
+});
+addEventListener('beforeunload', (event) => { if (dirty) event.preventDefault(); });
+
+openEditor().catch((error) => {
+  if (error.status !== 401) report(error);
+  const identification = JSON.parse(sessionStorage.getItem('master-login') || 'null');
+  if (identification) {
+    login.elements.phone.value = '+' + identification.phone;
+    login.elements.phone.dispatchEvent(new Event('input'));
+    switchAuth(identification.activate);
+  }
+  find('#login-panel').hidden = false;
+});
+
+});
+</script>
+</head>
+<body class="admin">
+  <header class="admin-header"><div class="wrap"><a href="../index.html">На сайт</a><button id="logout" type="button" hidden>Выйти</button></div></header>
+  <main class="wrap">
+    <h1>Демо кабинета</h1><p>Правки сохраняются в этом браузере и видны только на этом устройстве.</p>
+    <p id="message" role="status"></p>
+    <section id="login-panel" hidden>
+      <form id="login">
+        <h2 id="auth-title">Вход</h2>
+        <p id="auth-help" hidden>Для регистрации нужен одноразовый ключ, который выдаёт администратор сайта.</p>
+        <label>Номер мастера<input name="phone" type="tel" autocomplete="username" required placeholder="+7 999 000-00-00"></label>
+        <label id="invite-field" hidden>Ключ активации<input name="invite" type="text" autocomplete="off" disabled></label>
+        <label>Пароль<input name="password" type="password" autocomplete="current-password" minlength="7" maxlength="128" required></label>
+        <button class="button button-primary" type="submit" id="auth-action">Войти</button>
+        <button class="text-button" type="button" id="auth-toggle">Активировать кабинет</button>
+      </form>
+    </section>
+    <section id="editor" hidden>
+      <nav class="admin-nav" aria-label="Настройки сайта">
+        <a href="#details">О компании</a><a href="#media">Фото</a><a href="#prices">Цены</a><a href="#contacts">Связь</a><a href="#reputation">Отзывы</a>
+      </nav>
+      <form id="site-form">
+        <div id="fields"></div>
+        <div class="save-bar">
+          <span id="save-state" aria-live="polite">Нет несохранённых изменений</span>
+          <button id="save" class="button button-primary" type="submit" disabled>Сохранить изменения</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
